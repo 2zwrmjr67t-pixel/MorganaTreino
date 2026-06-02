@@ -3,975 +3,522 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Morgana Workout">
 <title>Morgana Workout</title>
 <style>
-  @import url('data:text/css,');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0c0b09;
-    --surface: #131210;
-    --surface2: #1a1815;
-    --border: #272420;
-    --border2: #332e28;
-    --gold: #c9a96e;
-    --gold2: #e8d5a3;
-    --gold-dim: rgba(201,169,110,0.13);
-    --text: #e8e0d0;
-    --text2: #a89880;
-    --text3: #5a5040;
-    --serif: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
-    --sans: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 60px 24px;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(201,169,110,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(139,107,66,0.05) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(201,169,110,0.04) 0%, transparent 60%);
-  }
-
-  .hero-ring {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(680px, 88vw);
-    height: min(680px, 88vw);
-    border: 1px solid rgba(201,169,110,0.07);
-    border-radius: 50%;
-    animation: pulse-ring 6s ease-in-out infinite;
-  }
-  .hero-ring.r2 {
-    width: min(480px, 68vw);
-    height: min(480px, 68vw);
-    border-color: rgba(201,169,110,0.10);
-    animation-delay: 2s;
-  }
-
-  @keyframes pulse-ring {
-    0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
-    50%      { transform: translate(-50%,-50%) scale(1.04); opacity: 0.5; }
-  }
-
-  .hero-eyebrow {
-    font-family: var(--sans);
-    font-size: 0.6rem;
-    font-weight: 300;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 22px;
-    opacity: 0;
-    animation: fade-up 1s ease 0.2s forwards;
-  }
-
-  .hero-title {
-    font-family: var(--serif);
-    font-size: clamp(3.6rem, 12vw, 8rem);
-    font-weight: 300;
-    line-height: 0.92;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    opacity: 0;
-    animation: fade-up 1s ease 0.4s forwards;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .hero-subtitle {
-    font-size: 0.62rem;
-    font-weight: 300;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--text3);
-    margin-top: 26px;
-    opacity: 0;
-    animation: fade-up 1s ease 0.6s forwards;
-  }
-
-  .hero-divider {
-    width: 1px;
-    height: 56px;
-    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-    margin: 36px auto 0;
-    opacity: 0;
-    animation: fade-up 1s ease 0.8s forwards;
-  }
-
-  .hero-meta {
-    display: flex;
-    gap: 36px;
-    margin-top: 36px;
-    opacity: 0;
-    animation: fade-up 1s ease 1s forwards;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .meta-item { text-align: center; }
-
-  .meta-value {
-    font-family: var(--serif);
-    font-size: 1.9rem;
-    font-weight: 300;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .meta-label {
-    font-size: 0.52rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text3);
-    margin-top: 5px;
-  }
-
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 30px; left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    animation: fade-up 1s ease 1.4s forwards;
-  }
-
-  .scroll-hint span {
-    font-size: 0.5rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--text3);
-  }
-
-  .scroll-arrow {
-    width: 1px; height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: sa 2s ease-in-out infinite;
-  }
-
-  @keyframes sa {
-    0%  { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100%{ transform: scaleY(0); transform-origin: bottom; }
-  }
-
-  /* ── WEEK OVERVIEW ── */
-  .week-overview {
-    padding: 80px 24px 0;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 44px;
-  }
-
-  .section-header::before,
-  .section-header::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border2);
-  }
-
-  .section-header h2 {
-    font-family: var(--sans);
-    font-size: 0.58rem;
-    font-weight: 300;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  .week-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-  }
-
-  .week-pill {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 16px 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.25s, background 0.25s;
-  }
-
-  .week-pill:hover:not(.rest) { border-color: rgba(201,169,110,0.35); }
-  .week-pill.active            { border-color: var(--gold); background: var(--surface2); }
-  .week-pill.rest              { opacity: 0.35; cursor: default; }
-
-  .pill-day {
-    font-size: 0.52rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text3);
-    margin-bottom: 8px;
-  }
-
-  .week-pill.active .pill-day { color: var(--gold); }
-
-  .pill-focus {
-    font-family: var(--serif);
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--text2);
-    line-height: 1.35;
-  }
-
-  .week-pill.active .pill-focus { color: var(--text); }
-
-  .pill-tag {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 0.44rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text3);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 2px 7px;
-  }
-
-  .week-pill.active .pill-tag { border-color: var(--gold); color: var(--gold); }
-
-  /* ── DAY DETAIL ── */
-  .day-detail {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
-  }
-
-  .detail-panel { display: none; animation: panel-in 0.35s ease; }
-  .detail-panel.active { display: block; }
-
-  @keyframes panel-in {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .panel-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: 36px 0 24px;
-    border-bottom: 1px solid var(--border2);
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .panel-title-group { display: flex; align-items: flex-end; }
-
-  .panel-day-num {
-    font-family: var(--serif);
-    font-size: 5rem;
-    font-weight: 300;
-    color: var(--border2);
-    line-height: 1;
-    margin-right: 20px;
-  }
-
-  .panel-title {
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 300;
-    color: var(--text);
-    line-height: 1;
-  }
-
-  .panel-title em { font-style: italic; color: var(--gold); }
-
-  .panel-subtitle {
-    font-size: 0.58rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text3);
-    margin-top: 8px;
-  }
-
-  .panel-badge {
-    font-size: 0.52rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    border-radius: 3px;
-    padding: 6px 14px;
-    align-self: flex-start;
-    margin-top: 8px;
-  }
-
-  /* ── TABLE ── */
-  .exercise-table { width: 100%; border-collapse: collapse; }
-
-  .exercise-table thead tr { border-bottom: 1px solid var(--border2); }
-
-  .exercise-table th {
-    font-size: 0.48rem;
-    font-weight: 300;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--text3);
-    padding: 0 12px 12px 0;
-    text-align: left;
-  }
-
-  .exercise-table tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background 0.18s;
-  }
-
-  .exercise-table tbody tr:hover { background: var(--surface2); }
-
-  .exercise-table td {
-    padding: 13px 12px 13px 0;
-    font-size: 0.78rem;
-    color: var(--text2);
-    vertical-align: middle;
-    line-height: 1.4;
-  }
-
-  .exercise-table td:first-child { color: var(--text); }
-
-  .vol {
-    font-family: var(--serif);
-    font-size: 1rem;
-    color: var(--gold);
-    font-weight: 300;
-  }
-
-  .highlight-row td:first-child { color: var(--gold2); }
-
-  .note-tag {
-    font-size: 0.52rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: var(--gold-dim);
-    color: var(--gold);
-    border-radius: 3px;
-    padding: 2px 7px;
-    display: inline-block;
-  }
-
-  /* ── COACH NOTE ── */
-  .coach-note {
-    margin-top: 26px;
-    padding: 18px 22px;
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-left: 2px solid var(--gold);
-    border-radius: 0 4px 4px 0;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.9rem;
-    color: var(--text3);
-    line-height: 1.7;
-  }
-
-  .coach-note strong {
-    font-family: var(--sans);
-    font-style: normal;
-    font-size: 0.54rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  /* ── PRINCIPLES ── */
-  .principles-section {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 24px 100px;
-  }
-
-  .principles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .principle-card {
-    background: var(--surface);
-    padding: 26px 22px;
-    transition: background 0.2s;
-  }
-
-  .principle-card:hover { background: var(--surface2); }
-
-  .principle-num {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--border2);
-    line-height: 1;
-    margin-bottom: 10px;
-  }
-
-  .principle-title {
-    font-size: 0.56rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-
-  .principle-text {
-    font-family: var(--serif);
-    font-size: 0.92rem;
-    color: var(--text2);
-    line-height: 1.65;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 30px 24px;
-    text-align: center;
-  }
-
-  footer p {
-    font-size: 0.52rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text3);
-  }
-
-  footer em {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--gold);
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    .week-grid { grid-template-columns: repeat(4, 1fr); }
-    .week-pill:nth-child(n+5) { display: none; }
-    .mob-nav { display: flex !important; }
-  }
-
-  .mob-nav {
-    display: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 10px;
-  }
-
-  .mob-btn {
-    font-family: var(--sans);
-    font-size: 0.52rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text3);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .mob-btn.active { color: var(--gold); border-color: var(--gold); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0c0a;--s1:#161513;--s2:#1e1c1a;--br:#232220;--br2:#2a2927;
+  --tx:#e8e2d8;--mt:#6b6760;--ac:#c9a05a;
+  --rose:#c07090;--teal:#5a8a7a;--purple:#a07aa0;--green:#6a9a6a;
+}
+html{height:100%}
+body{height:100%;display:flex;flex-direction:column;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+.hdr{padding:max(48px,env(safe-area-inset-top)) 20px 18px;border-bottom:1px solid var(--br);flex-shrink:0}
+.hdr-eyebrow{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.hdr-title{font-size:28px;font-weight:300;color:var(--tx);line-height:1.05;letter-spacing:-.02em}
+.hdr-title strong{font-weight:600;color:var(--ac)}
+.hdr-title em{font-style:italic;font-weight:300;color:var(--ac)}
+.hdr-sub{font-size:11px;color:var(--mt);margin-top:8px;letter-spacing:.03em;line-height:1.5}
+.hdr-divider{width:32px;height:1px;background:var(--ac);opacity:.4;margin:12px 0 0}
+
+.lgd{display:flex;gap:12px;padding:9px 20px;border-bottom:1px solid var(--br);flex-shrink:0;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mt)}
+.ld{width:5px;height:5px;border-radius:50%}
+
+.sticky-nav{position:sticky;top:0;z-index:10;background:var(--bg);flex-shrink:0}
+.day-tabs{display:flex;border-bottom:1px solid var(--br);overflow-x:auto;scrollbar-width:none}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tab{flex:1;min-width:58px;display:flex;flex-direction:column;align-items:center;padding:9px 6px 7px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;color:var(--mt)}
+.day-tab.on{color:var(--tx)}
+.dtd{font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+.dtn{font-size:11px;font-weight:500;margin-top:1px;white-space:nowrap}
+
+.prog-wrap{padding:10px 20px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:10px}
+.prog-bar-bg{flex:1;height:3px;background:var(--br2);border-radius:2px;overflow:hidden}
+.prog-bar-fill{height:100%;background:var(--ac);border-radius:2px;transition:width .3s ease}
+.prog-label{font-size:10px;color:var(--mt);white-space:nowrap;min-width:40px;text-align:right}
+.prog-reset{font-size:9px;color:var(--mt);background:none;border:1px solid var(--br2);border-radius:4px;padding:3px 8px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.prog-reset:active{background:var(--br2);color:var(--tx)}
+
+/* ── TIMER OVERLAY ── */
+.timer-overlay{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(13,12,10,.97);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;padding:32px;
+}
+.timer-overlay.show{opacity:1;pointer-events:all}
+.timer-exname{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--mt);margin-bottom:4px;text-align:center;max-width:280px;line-height:1.4}
+.timer-serieinfo{font-size:13px;color:var(--ac);letter-spacing:.1em;margin-bottom:28px;text-align:center}
+
+.timer-ring-wrap{position:relative;width:200px;height:200px;margin-bottom:28px}
+.timer-svg{transform:rotate(-90deg)}
+.timer-ring-bg{fill:none;stroke:var(--br2);stroke-width:4}
+.timer-ring-prog{fill:none;stroke:var(--ac);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .9s linear,stroke .3s}
+.timer-ring-prog.urgent{stroke:var(--rose)}
+.timer-digits{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.timer-secs{font-size:52px;font-weight:200;color:var(--tx);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.timer-secs.urgent{color:var(--rose)}
+.timer-unit{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mt);margin-top:4px}
+
+.timer-next{font-size:10px;color:var(--mt);text-align:center;margin-bottom:24px;letter-spacing:.05em;line-height:1.5;max-width:260px}
+.timer-next b{color:var(--tx);font-weight:500}
+
+.timer-btns{display:flex;gap:10px}
+.timer-btn{padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-family:inherit;transition:all .2s}
+.timer-btn.skip{background:var(--br2);color:var(--mt)}
+.timer-btn.skip:active{background:var(--br);color:var(--tx)}
+.timer-btn.add{background:var(--s2);color:var(--ac);border:1px solid var(--br2)}
+.timer-btn.add:active{background:var(--br2)}
+
+/* ── PANELS ── */
+.panels-wrap{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.panel{display:none;padding:16px 20px max(36px,env(safe-area-inset-bottom))}.panel.on{display:block}
+
+.bdg{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-bottom:6px}
+.ptl{font-size:19px;font-weight:300;color:var(--tx);letter-spacing:-.01em;margin-bottom:3px}
+.pfoc{font-size:11px;color:var(--mt);margin-bottom:14px;line-height:1.4}
+
+.tl{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--br);margin-bottom:14px}
+.ts{flex:1;padding:6px 2px;text-align:center;font-size:8px;color:var(--mt);line-height:1.35;border-right:1px solid var(--br)}
+.ts:last-child{border-right:none}
+.ts.hi{background:var(--s1);color:var(--tx)}
+.tm{font-size:7px;color:var(--mt)}
+
+/* EXERCISE CARD */
+.ec{background:var(--s1);border-radius:10px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--br);position:relative;overflow:hidden;transition:opacity .3s,background .3s}
+.ec.done{opacity:.4;background:var(--bg)}
+.ec.done .enm{text-decoration:line-through;color:var(--mt)}
+.ea{position:absolute;left:0;top:0;bottom:0;width:3px;transition:background .3s}
+.ec.done .ea{background:var(--green) !important}
+
+.en{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.enm{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3;margin-bottom:8px;transition:all .3s}
+
+.etgs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.etg{font-size:9px;font-weight:500;padding:2px 7px;border-radius:8px}
+.ep{background:rgba(201,160,90,.12);color:#c9a05a}
+.ec2{background:rgba(192,112,144,.12);color:#c07090}
+.ef{background:rgba(160,122,160,.12);color:#a07aa0}
+
+/* STATS ROW */
+.ests{display:flex;gap:16px;margin-bottom:12px}
+.est{display:flex;flex-direction:column}
+.esl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em}
+.esv{font-size:17px;font-weight:500;color:var(--tx);line-height:1.2}
+.esv.sm{font-size:13px}
+
+/* SERIES DOTS */
+.series-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.series-label{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.series-dots{display:flex;gap:6px;flex-wrap:wrap}
+.sdot{
+  width:32px;height:32px;border-radius:50%;
+  border:1.5px solid var(--br2);background:none;
+  cursor:pointer;font-size:10px;font-weight:600;color:var(--mt);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-family:inherit;
+  -webkit-tap-highlight-color:transparent;
+}
+.sdot:active{transform:scale(.88)}
+.sdot.done{background:var(--green);border-color:var(--green);color:#fff}
+.sdot.active-dot{border-color:var(--ac);color:var(--ac)}
+
+.enote{font-size:11px;color:var(--mt);line-height:1.5;padding-top:8px;border-top:1px solid var(--br)}
+
+.ibox{background:var(--s2);border-radius:8px;padding:10px 12px;margin:4px 0 12px;font-size:11px;color:var(--mt);line-height:1.6}
+.ibox b{color:var(--tx);font-weight:500}
+
+.ftr{background:var(--s1);border-radius:10px;border:1px solid var(--br);padding:13px 14px;font-size:10px;color:var(--mt);line-height:1.7;margin-top:6px}
+.ftrtl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--mt);margin-bottom:7px}
+.ftr-divider{width:20px;height:1px;background:var(--ac);opacity:.3;margin-bottom:10px}
+
+.done-banner{display:none;margin:0 0 12px;padding:12px 14px;background:rgba(106,154,106,.1);border:1px solid rgba(106,154,106,.3);border-radius:10px;font-size:12px;color:var(--green);text-align:center;letter-spacing:.05em}
+.done-banner.show{display:block}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-ring"></div>
-  <div class="hero-ring r2"></div>
+<div class="hdr">
+  <div class="hdr-eyebrow">Programa de hipertrofia feminina</div>
+  <div class="hdr-title"><strong>Morgana</strong><br><em>Workout</em></div>
+  <div class="hdr-sub">Glúteo · Pernas · Abdômen · Costas &nbsp;—&nbsp; Avançada · Definição</div>
+  <div class="hdr-divider"></div>
+</div>
 
-  <p class="hero-eyebrow">Programa de Hipertrofia Feminina</p>
-  <h1 class="hero-title">Morgana<br><em>Workout</em></h1>
-  <p class="hero-subtitle">Glúteo · Pernas · Abdômen · Costas &nbsp;—&nbsp; Avançada</p>
-  <div class="hero-divider"></div>
+<div class="lgd">
+  <div class="li"><div class="ld" style="background:var(--ac)"></div>◆ principal</div>
+  <div class="li"><div class="ld" style="background:var(--rose)"></div>⚡ glúteo</div>
+  <div class="li"><div class="ld" style="background:var(--purple)"></div>◎ core</div>
+</div>
 
-  <div class="hero-meta">
-    <div class="meta-item">
-      <div class="meta-value">5</div>
-      <div class="meta-label">Dias / semana</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-value" style="font-size:1.1rem;padding-top:5px">Definição</div>
-      <div class="meta-label">Objetivo</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-value">2×</div>
-      <div class="meta-label">Glúteo / semana</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-value" style="font-size:1.1rem;padding-top:5px">PPL+</div>
-      <div class="meta-label">Divisão</div>
+<div class="sticky-nav">
+  <div class="day-tabs" id="dtabs"></div>
+  <div class="prog-wrap">
+    <div class="prog-bar-bg"><div class="prog-bar-fill" id="progFill" style="width:0%"></div></div>
+    <span class="prog-label" id="progLabel">0 / 0</span>
+    <button class="prog-reset" onclick="resetDay()">Reset</button>
+  </div>
+</div>
+
+<div class="panels-wrap" id="panelsWrap">
+  <div id="dpanels"></div>
+</div>
+
+<!-- TIMER OVERLAY -->
+<div class="timer-overlay" id="timerOverlay">
+  <div class="timer-exname" id="timerExName"></div>
+  <div class="timer-serieinfo" id="timerSerieInfo"></div>
+
+  <div class="timer-ring-wrap">
+    <svg class="timer-svg" width="200" height="200" viewBox="0 0 200 200">
+      <circle class="timer-ring-bg" cx="100" cy="100" r="88"/>
+      <circle class="timer-ring-prog" id="timerRing" cx="100" cy="100" r="88"
+        stroke-dasharray="553" stroke-dashoffset="0"/>
+    </svg>
+    <div class="timer-digits">
+      <div class="timer-secs" id="timerSecs">60</div>
+      <div class="timer-unit">segundos</div>
     </div>
   </div>
 
-  <div class="scroll-hint">
-    <span>Ver treinos</span>
-    <div class="scroll-arrow"></div>
+  <div class="timer-next" id="timerNext"></div>
+
+  <div class="timer-btns">
+    <button class="timer-btn add" onclick="addTime()">+30s</button>
+    <button class="timer-btn skip" onclick="skipTimer()">Pular</button>
   </div>
-</section>
-
-<!-- WEEK OVERVIEW -->
-<section class="week-overview">
-  <div class="section-header"><h2>Semana de Treino</h2></div>
-
-  <div class="week-grid">
-    <div class="week-pill active" onclick="selectDay(0)">
-      <div class="pill-day">Seg</div>
-      <div class="pill-focus">Glúteo<br>Posterior</div>
-      <div class="pill-tag">Legs A</div>
-    </div>
-    <div class="week-pill" onclick="selectDay(1)">
-      <div class="pill-day">Ter</div>
-      <div class="pill-focus">Costas<br>Bíceps</div>
-      <div class="pill-tag">Pull</div>
-    </div>
-    <div class="week-pill" onclick="selectDay(2)">
-      <div class="pill-day">Qua</div>
-      <div class="pill-focus">Quadríceps<br>Core</div>
-      <div class="pill-tag">Legs B</div>
-    </div>
-    <div class="week-pill" onclick="selectDay(3)">
-      <div class="pill-day">Qui</div>
-      <div class="pill-focus">Ombro<br>Tríceps</div>
-      <div class="pill-tag">Push</div>
-    </div>
-    <div class="week-pill" onclick="selectDay(4)">
-      <div class="pill-day">Sex</div>
-      <div class="pill-focus">Glúteo<br>LISS</div>
-      <div class="pill-tag">Legs C</div>
-    </div>
-    <div class="week-pill rest">
-      <div class="pill-day">Sáb</div>
-      <div class="pill-focus">Descanso</div>
-      <div class="pill-tag">Rest</div>
-    </div>
-    <div class="week-pill rest">
-      <div class="pill-day">Dom</div>
-      <div class="pill-focus">Descanso</div>
-      <div class="pill-tag">Rest</div>
-    </div>
-  </div>
-
-  <div class="mob-nav">
-    <button class="mob-btn active" onclick="selectDay(0)">Seg</button>
-    <button class="mob-btn" onclick="selectDay(1)">Ter</button>
-    <button class="mob-btn" onclick="selectDay(2)">Qua</button>
-    <button class="mob-btn" onclick="selectDay(3)">Qui</button>
-    <button class="mob-btn" onclick="selectDay(4)">Sex</button>
-  </div>
-</section>
-
-<!-- DAY DETAIL -->
-<section class="day-detail">
-
-  <!-- SEG -->
-  <div class="detail-panel active" id="panel-0">
-    <div class="panel-header">
-      <div class="panel-title-group">
-        <div class="panel-day-num">01</div>
-        <div>
-          <div class="panel-title">Glúteo &amp; <em>Posterior</em></div>
-          <div class="panel-subtitle">Segunda · Ênfase em glúteo máximo e isquiotibiais</div>
-        </div>
-      </div>
-      <div class="panel-badge">Legs A</div>
-    </div>
-    <table class="exercise-table">
-      <thead><tr><th style="width:40%">Exercício</th><th style="width:18%">Volume</th><th>Observação</th></tr></thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td>Hip Thrust com Barra</td>
-          <td><span class="vol">4×8–10</span></td>
-          <td><span class="note-tag">Composto Principal</span> &nbsp;Progredir carga toda semana</td>
-        </tr>
-        <tr>
-          <td>Stiff com Barra ou Halteres</td>
-          <td><span class="vol">4×8–10</span></td>
-          <td>Coluna neutra — posterior + glúteo com alongamento</td>
-        </tr>
-        <tr>
-          <td>Agachamento Sumô com Halter</td>
-          <td><span class="vol">3×10–12</span></td>
-          <td>Adutores + glúteo médio</td>
-        </tr>
-        <tr>
-          <td>Abdução no Cabo (pé no cabo)</td>
-          <td><span class="vol">3×15</span></td>
-          <td>Cada lado — glúteo médio e mínimo</td>
-        </tr>
-        <tr>
-          <td>Mesa Flexora</td>
-          <td><span class="vol">3×12–15</span></td>
-          <td>Isolamento de isquiotibiais</td>
-        </tr>
-        <tr>
-          <td>Elevação Pélvica Unilateral</td>
-          <td><span class="vol">3×12</span></td>
-          <td>Cada lado — finisher de glúteo</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="coach-note">
-      <strong>Nota</strong>
-      O Hip Thrust é o exercício mais importante de toda a semana. É aqui que a carga deve progredir semana a semana. Aquecimento progressivo obrigatório: 2 séries leves antes das séries de trabalho. Mantenha o queixo para o peito e o core ativado durante toda a amplitude.
-    </div>
-  </div>
-
-  <!-- TER -->
-  <div class="detail-panel" id="panel-1">
-    <div class="panel-header">
-      <div class="panel-title-group">
-        <div class="panel-day-num">02</div>
-        <div>
-          <div class="panel-title">Costas &amp; <em>Bíceps</em></div>
-          <div class="panel-subtitle">Terça · Largura, espessura e postura</div>
-        </div>
-      </div>
-      <div class="panel-badge">Pull</div>
-    </div>
-    <table class="exercise-table">
-      <thead><tr><th style="width:40%">Exercício</th><th style="width:18%">Volume</th><th>Observação</th></tr></thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td>Barra Fixa ou Puxada Assistida</td>
-          <td><span class="vol">4×6–10</span></td>
-          <td><span class="note-tag">Composto Principal</span> &nbsp;Pegada aberta — largura</td>
-        </tr>
-        <tr>
-          <td>Remada c/ Halteres (chest supported)</td>
-          <td><span class="vol">4×8–10</span></td>
-          <td>Espessura sem demanda lombar</td>
-        </tr>
-        <tr>
-          <td>Puxada Fechada Supinada</td>
-          <td><span class="vol">3×10–12</span></td>
-          <td>Bíceps + dorsal baixo</td>
-        </tr>
-        <tr>
-          <td>Remada Baixa no Cabo</td>
-          <td><span class="vol">3×12</span></td>
-          <td>Retração escapular — postura</td>
-        </tr>
-        <tr>
-          <td>Face Pull</td>
-          <td><span class="vol">3×15–20</span></td>
-          <td>Manguito rotador + postura</td>
-        </tr>
-        <tr>
-          <td>Rosca Direta com Barra EZ</td>
-          <td><span class="vol">3×10–12</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Rosca Martelo Alternada</td>
-          <td><span class="vol">3×12</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><em>Core:</em> Prancha + Dead Bug</td>
-          <td><span class="vol">3×40s / 3×10</span></td>
-          <td>Integrado ao final da sessão</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="coach-note">
-      <strong>Nota</strong>
-      Costas bem desenvolvidas criam a silhueta em V que valoriza cintura e quadril — complemento estético fundamental ao trabalho de glúteo. O Face Pull é proteção de postura, não opcional. Termine sempre com o core para aproveitar o aquecimento.
-    </div>
-  </div>
-
-  <!-- QUA -->
-  <div class="detail-panel" id="panel-2">
-    <div class="panel-header">
-      <div class="panel-title-group">
-        <div class="panel-day-num">03</div>
-        <div>
-          <div class="panel-title">Quadríceps &amp; <em>Core</em></div>
-          <div class="panel-subtitle">Quarta · Ênfase anterior + estabilidade abdominal</div>
-        </div>
-      </div>
-      <div class="panel-badge">Legs B</div>
-    </div>
-    <table class="exercise-table">
-      <thead><tr><th style="width:40%">Exercício</th><th style="width:18%">Volume</th><th>Observação</th></tr></thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td>Agachamento Livre</td>
-          <td><span class="vol">4×6–8</span></td>
-          <td><span class="note-tag">Composto Principal</span> &nbsp;Descida controlada</td>
-        </tr>
-        <tr>
-          <td>Leg Press 45° (pés baixos e fechados)</td>
-          <td><span class="vol">3×10–12</span></td>
-          <td>Posição quadríceps dominante</td>
-        </tr>
-        <tr>
-          <td>Afundo Búlgaro com Halteres</td>
-          <td><span class="vol">3×10</span></td>
-          <td>Cada lado — glúteo + quadríceps unilateral</td>
-        </tr>
-        <tr>
-          <td>Cadeira Extensora</td>
-          <td><span class="vol">3×12–15</span></td>
-          <td>Isolamento de quadríceps</td>
-        </tr>
-        <tr>
-          <td>Panturrilha em Pé</td>
-          <td><span class="vol">4×15–20</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><em>Core:</em> Pallof Press (cabo)</td>
-          <td><span class="vol">3×12</span></td>
-          <td>Cada lado — anti-rotação</td>
-        </tr>
-        <tr>
-          <td><em>Core:</em> Prancha Lateral</td>
-          <td><span class="vol">3×35s</span></td>
-          <td>Cada lado — oblíquos</td>
-        </tr>
-        <tr>
-          <td><em>Core:</em> Crunch no Cabo</td>
-          <td><span class="vol">3×15–20</span></td>
-          <td>Reto abdominal com carga real</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="coach-note">
-      <strong>Nota</strong>
-      O core integrado ao dia de pernas é estratégico: o sistema já está aquecido e a demanda de estabilização dos compostos potencializa o efeito. Crunch no cabo com carga progressiva é um dos exercícios mais eficientes para definição abdominal — trate como composto, não como finisher simbólico.
-    </div>
-  </div>
-
-  <!-- QUI -->
-  <div class="detail-panel" id="panel-3">
-    <div class="panel-header">
-      <div class="panel-title-group">
-        <div class="panel-day-num">04</div>
-        <div>
-          <div class="panel-title">Ombro &amp; <em>Tríceps</em></div>
-          <div class="panel-subtitle">Quinta · Definição e estrutura de ombro</div>
-        </div>
-      </div>
-      <div class="panel-badge">Push</div>
-    </div>
-    <table class="exercise-table">
-      <thead><tr><th style="width:40%">Exercício</th><th style="width:18%">Volume</th><th>Observação</th></tr></thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td>Desenvolvimento com Halteres</td>
-          <td><span class="vol">4×8–10</span></td>
-          <td><span class="note-tag">Composto Principal</span></td>
-        </tr>
-        <tr>
-          <td>Elevação Lateral (cabo unilateral)</td>
-          <td><span class="vol">4×15–20</span></td>
-          <td>Definição de ombro — sem balanço</td>
-        </tr>
-        <tr>
-          <td>Elevação Frontal com Anilha</td>
-          <td><span class="vol">3×12</span></td>
-          <td>Feixe anterior</td>
-        </tr>
-        <tr>
-          <td>Tríceps Corda</td>
-          <td><span class="vol">3×12–15</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Tríceps Testa com Barra EZ</td>
-          <td><span class="vol">3×10–12</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Tríceps Unilateral no Cabo</td>
-          <td><span class="vol">3×12</span></td>
-          <td>Cada lado — finalização</td>
-        </tr>
-        <tr>
-          <td><em>Core:</em> Ab Wheel</td>
-          <td><span class="vol">3×10</span></td>
-          <td>Força de core total</td>
-        </tr>
-        <tr>
-          <td><em>Core:</em> Elevação de Pernas</td>
-          <td><span class="vol">3×15</span></td>
-          <td>Região abdominal inferior</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="coach-note">
-      <strong>Nota</strong>
-      Ombro bem desenvolvido cria a ilusão de cintura mais fina — efeito estético que complementa diretamente o trabalho de glúteo e pernas. Elevação lateral no cabo é superior ao halter nesse contexto: tensão constante ao longo de toda a amplitude.
-    </div>
-  </div>
-
-  <!-- SEX -->
-  <div class="detail-panel" id="panel-4">
-    <div class="panel-header">
-      <div class="panel-title-group">
-        <div class="panel-day-num">05</div>
-        <div>
-          <div class="panel-title">Glúteo &amp; <em>LISS</em></div>
-          <div class="panel-subtitle">Sexta · 2ª frequência de glúteo + recuperação ativa</div>
-        </div>
-      </div>
-      <div class="panel-badge">Legs C</div>
-    </div>
-    <table class="exercise-table">
-      <thead><tr><th style="width:40%">Exercício</th><th style="width:18%">Volume</th><th>Observação</th></tr></thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td>Leg Press (pés altos e abertos)</td>
-          <td><span class="vol">4×10–12</span></td>
-          <td><span class="note-tag">Glúteo Dominante</span> &nbsp;Amplitude completa</td>
-        </tr>
-        <tr>
-          <td>Extensão de Quadril no Cabo (kickback)</td>
-          <td><span class="vol">3×15</span></td>
-          <td>Cada lado — isolamento de glúteo</td>
-        </tr>
-        <tr>
-          <td>Abdução na Máquina</td>
-          <td><span class="vol">4×15–20</span></td>
-          <td>Peso alto, controle total — glúteo médio</td>
-        </tr>
-        <tr>
-          <td>Leg Curl Deitado</td>
-          <td><span class="vol">3×12–15</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Afundo Caminhando com Halteres</td>
-          <td><span class="vol">3×10</span></td>
-          <td>Cada lado — volume funcional</td>
-        </tr>
-        <tr>
-          <td>Cardio LISS — Bike ou Esteira inclinada</td>
-          <td><span class="vol">25–30 min</span></td>
-          <td>Zona 2 — conversa possível</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="coach-note">
-      <strong>Nota</strong>
-      Segunda frequência de glúteo com estímulos diferentes da segunda-feira: ênfase em abdução, kickback e leg press glúteo-dominante. O LISS em zona 2 antes do final de semana acelera recuperação muscular sem catabolismo — ideal para entrar no descanso com o sistema nervoso tranquilo.
-    </div>
-  </div>
-
-</section>
-
-<!-- PRINCIPLES -->
-<section class="principles-section">
-  <div class="section-header"><h2>Princípios do Programa</h2></div>
-  <div class="principles-grid">
-    <div class="principle-card">
-      <div class="principle-num">01</div>
-      <div class="principle-title">Progressão de Carga</div>
-      <div class="principle-text">Hip Thrust e Agachamento são os compostos prioritários. Busque ao menos 1 rep a mais ou 2,5 kg a mais por semana nesses dois movimentos.</div>
-    </div>
-    <div class="principle-card">
-      <div class="principle-num">02</div>
-      <div class="principle-title">RIR — Reserva de Repetições</div>
-      <div class="principle-text">Termine as séries com 1–2 repetições no tanque. Intensidade alta sem falha desnecessária — preserva qualidade técnica e recuperação.</div>
-    </div>
-    <div class="principle-card">
-      <div class="principle-num">03</div>
-      <div class="principle-title">Core Integrado</div>
-      <div class="principle-text">O core aparece em 4 dos 5 dias com exercícios diferentes. Consistência e carga progressiva aqui é o que gera definição abdominal real.</div>
-    </div>
-    <div class="principle-card">
-      <div class="principle-num">04</div>
-      <div class="principle-title">Glúteo 2× por Semana</div>
-      <div class="principle-text">Segunda com estímulo de alongamento (hip thrust, stiff). Sexta com estímulo de encurtamento (abdução, kickback). Frequência + variação = resultado.</div>
-    </div>
-    <div class="principle-card">
-      <div class="principle-num">05</div>
-      <div class="principle-title">Aquecimento Matinal</div>
-      <div class="principle-text">5–8 minutos de mobilidade articular antes de qualquer composto. Quadril, tornozelo e coluna torácica são prioridade nos dias de pernas.</div>
-    </div>
-    <div class="principle-card">
-      <div class="principle-num">06</div>
-      <div class="principle-title">Deload a cada 6–8 semanas</div>
-      <div class="principle-text">Reduza o volume em 40% mantendo a intensidade. Sem isso, o programa eventualmente cobra com fadiga acumulada ou platô de performance.</div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p><em>Morgana Workout</em> &nbsp;·&nbsp; Programa de Hipertrofia Feminina &nbsp;·&nbsp; 5 dias / semana</p>
-  <p style="margin-top:8px">Glúteo · Pernas · Abdômen · Costas</p>
-</footer>
+</div>
 
 <script>
-  function selectDay(index) {
-    document.querySelectorAll('.week-pill').forEach((p, i) => {
-      p.classList.toggle('active', i === index);
-    });
-    document.querySelectorAll('.mob-btn').forEach((b, i) => {
-      b.classList.toggle('active', i === index);
-    });
-    document.querySelectorAll('.detail-panel').forEach((p, i) => {
-      p.classList.toggle('active', i === index);
-    });
-    document.querySelector('.day-detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+/* ── DATA ── */
+var DAYS=[
+  {
+    l:"Seg",n:"Glúteo A",c:"#c9a05a",
+    foc:"Ênfase em glúteo máximo e cadeia posterior — composto principal é o Hip Thrust",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Hip Thrust",m:"14min",h:1},{t:"Stiff",m:"11min",h:1},{t:"Sumô",m:"9min",h:1},{t:"Abdução",m:"7min",h:1},{t:"Mesa flex.",m:"7min",h:1},{t:"Elev. pélv.",m:"6min",h:1}],
+    ex:[
+      {n:"Hip Thrust com Barra",tg:["p","g"],s:4,r:"8–10",d:"90s",rest:90,nt:"Composto principal da semana — progrida carga toda semana. Queixo para o peito, core ativado, lombar neutra."},
+      {n:"Stiff com Barra ou Halteres",tg:["g"],s:4,r:"8–10",d:"75s",rest:75,nt:"Coluna neutra — não flexione lombar sob carga. Sinta o alongamento dos isquiotibiais."},
+      {n:"Agachamento Sumô com Halter",tg:[],s:3,r:"10–12",d:"75s",rest:75,nt:"Adutores + glúteo médio. Joelhos apontam para fora durante todo o movimento."},
+      {n:"Abdução no Cabo (pé no cabo)",tg:["g"],s:3,r:"15",d:"60s",rest:60,nt:"Cada lado. Glúteo médio e mínimo — estabilidade lateral do quadril."},
+      {n:"Mesa Flexora Bilateral",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Isquiotibiais — bilateral, sem assimetria. Amplitude total."},
+      {n:"Elevação Pélvica Unilateral",tg:["g"],s:3,r:"12",d:"60s",rest:60,nt:"Cada lado. Finisher de glúteo — apoio firme no banco, quadril alinha no topo."}
+    ],
+    info:"19 séries totais. Hip Thrust é o exercício mais importante de toda a semana."
+  },
+  {
+    l:"Ter",n:"Costas",c:"#5a8a7a",
+    foc:"Largura, espessura e postura — bíceps ao final + core integrado",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Barra fixa",m:"13min",h:1},{t:"Remada",m:"11min",h:1},{t:"Puxada",m:"9min",h:1},{t:"Rem. baixa",m:"8min",h:1},{t:"Face pull",m:"7min",h:1},{t:"Bíceps",m:"7min",h:1}],
+    ex:[
+      {n:"Barra Fixa ou Puxada Assistida",tg:["p"],s:4,r:"6–10",d:"90s",rest:90,nt:"Pegada aberta — largura. Cotovelos apontam para o chão na descida."},
+      {n:"Remada c/ Halteres (chest supported)",tg:[],s:4,r:"8–10",d:"75s",rest:75,nt:"Banco inclinado elimina variáveis lombares — foco total na espessura das costas."},
+      {n:"Puxada Fechada Supinada",tg:[],s:3,r:"10–12",d:"60s",rest:60,nt:"Bíceps + dorsal baixo. Cotovelos apontam para o chão ao final do movimento."},
+      {n:"Remada Baixa no Cabo",tg:[],s:3,r:"12",d:"60s",rest:60,nt:"Retração escapular completa. Postura — médio e inferior do trapézio."},
+      {n:"Face Pull com Corda",tg:[],s:3,r:"15–20",d:"60s",rest:60,nt:"Manguito rotador + postura. Puxe para a testa, não para o queixo."},
+      {n:"Rosca Direta com Barra EZ",tg:["p"],s:3,r:"10–12",d:"75s",rest:75,nt:"Sem balanço de tronco — isola bíceps com qualidade."},
+      {n:"Rosca Martelo Alternada",tg:[],s:3,r:"12",d:"60s",rest:60,nt:"Braquiorradial e bíceps. Alternada, não simultânea."},
+      {n:"Core: Prancha + Dead Bug",tg:["c"],s:3,r:"40s/10/lado",d:"45s",rest:45,nt:"Integrado ao final. Prancha ativa o anterior; dead bug treina controle lombar."}
+    ],
+    info:"Costas bem desenvolvidas criam a silhueta em V que valoriza cintura e quadril."
+  },
+  {
+    l:"Qua",n:"Quadríceps",c:"#7a6bbf",
+    foc:"Ênfase anterior + core com carga — maior volume de abdômen da semana",
+    tl:[{t:"Aquec.",m:"4min",h:0},{t:"Agachamento",m:"14min",h:1},{t:"Leg press",m:"11min",h:1},{t:"Búlgaro",m:"9min",h:1},{t:"Extensora",m:"7min",h:1},{t:"Panturrilha",m:"6min",h:1},{t:"Core",m:"8min",h:1}],
+    ex:[
+      {n:"Agachamento Livre",tg:["p"],s:4,r:"6–8",d:"90s",rest:90,nt:"Composto principal do dia. Descida controlada — 3s na descida. Aquecimento progressivo obrigatório."},
+      {n:"Leg Press 45° (pés baixos e fechados)",tg:[],s:3,r:"10–12",d:"75s",rest:75,nt:"Posição quadríceps dominante. Lombar colada ao banco durante toda a amplitude."},
+      {n:"Afundo Búlgaro com Halteres",tg:["g"],s:3,r:"10",d:"75s",rest:75,nt:"Cada lado. Glúteo + quadríceps unilateral. Tronco levemente inclinado para frente."},
+      {n:"Cadeira Extensora",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Isolamento de quadríceps sem carga axial na coluna. Pausa de 1s no topo."},
+      {n:"Panturrilha em Pé na Máquina",tg:[],s:4,r:"15–20",d:"45s",rest:45,nt:"Amplitude total — calcâneo abaixo da plataforma. Pausa de 1s no alongamento."},
+      {n:"Core: Pallof Press no Cabo",tg:["c"],s:3,r:"12/lado",d:"45s",rest:45,nt:"Anti-rotação — oblíquos. Braços estendidos na frente, resistir à rotação."},
+      {n:"Core: Prancha Lateral",tg:["c"],s:3,r:"35s/lado",d:"45s",rest:45,nt:"Oblíquos + estabilidade lateral. Quadril não cai."},
+      {n:"Core: Crunch no Cabo",tg:["c"],s:3,r:"15–20",d:"60s",rest:60,nt:"Reto abdominal com carga real — progressão de carga aqui gera resultado."}
+    ],
+    info:"Crunch no cabo com carga progressiva é um dos exercícios mais eficientes para definição abdominal."
+  },
+  {
+    l:"Qui",n:"Ombro",c:"#6a9a6a",
+    foc:"Ombros 3D + tríceps + core de força — base para a ilusão de cintura",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Desenvolv.",m:"13min",h:1},{t:"Elev. lat.",m:"9min",h:1},{t:"Elev. front.",m:"8min",h:1},{t:"Tríceps",m:"10min",h:1},{t:"Core",m:"7min",h:1}],
+    ex:[
+      {n:"Desenvolvimento com Halteres",tg:["p"],s:4,r:"8–10",d:"90s",rest:90,nt:"Sentada, encosto a 80°. Não eleve o cotovelo além do plano do ombro."},
+      {n:"Elevação Lateral (cabo unilateral)",tg:[],s:4,r:"15–20",d:"60s",rest:60,nt:"Tensão constante ao longo de toda a amplitude. Sem balanço — movimento controlado."},
+      {n:"Elevação Frontal com Anilha",tg:[],s:3,r:"12",d:"60s",rest:60,nt:"Feixe anterior do deltoide. Cotovelo levemente flexionado."},
+      {n:"Tríceps Corda no Cabo",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Cotovelos fixos ao lado do corpo. Extensão total na descida, abre a corda no final."},
+      {n:"Tríceps Testa com Barra EZ",tg:[],s:3,r:"10–12",d:"60s",rest:60,nt:"Úmero perpendicular ao chão — não deixe cair para trás."},
+      {n:"Tríceps Unilateral no Cabo",tg:[],s:3,r:"12/lado",d:"60s",rest:60,nt:"Finalização. Cada lado — simetria e volume de isolamento."},
+      {n:"Core: Ab Wheel",tg:["c"],s:3,r:"10",d:"60s",rest:60,nt:"Força de core total. Lombar não arqueie no retorno."},
+      {n:"Core: Elevação de Pernas",tg:["c"],s:3,r:"15",d:"60s",rest:60,nt:"Região abdominal inferior. Controle na descida — não deixe cair."}
+    ],
+    info:"Ombro bem desenvolvido cria ilusão de cintura mais fina — efeito estético que complementa diretamente glúteo e pernas."
+  },
+  {
+    l:"Sex",n:"Glúteo B",c:"#c07090",
+    foc:"2ª frequência de glúteo — estímulos diferentes da segunda + cardio LISS",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Leg press",m:"12min",h:1},{t:"Kickback",m:"9min",h:1},{t:"Abdução",m:"9min",h:1},{t:"Leg curl",m:"8min",h:1},{t:"Afundo",m:"7min",h:1},{t:"LISS",m:"25min",h:1}],
+    ex:[
+      {n:"Leg Press (pés altos e abertos)",tg:["p","g"],s:4,r:"10–12",d:"90s",rest:90,nt:"Posição glúteo dominante. Amplitude completa — quadril desce abaixo do joelho. Lombar colada ao banco."},
+      {n:"Extensão de Quadril no Cabo (kickback)",tg:["g"],s:3,r:"15",d:"60s",rest:60,nt:"Cada lado. Isolamento de glúteo máximo — core ativado para não compensar com lombar."},
+      {n:"Abdução na Máquina",tg:["g"],s:4,r:"15–20",d:"60s",rest:60,nt:"Glúteo médio — peso alto com controle total. Não balance o tronco para ajudar."},
+      {n:"Leg Curl Deitado Bilateral",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Isquiotibiais — bilateral, sem assimetria. Amplitude total."},
+      {n:"Afundo Caminhando com Halteres",tg:["g"],s:3,r:"10/lado",d:"75s",rest:75,nt:"Volume funcional — glúteo + quadríceps. Tronco levemente inclinado para frente."},
+      {n:"Cardio LISS — Bike ou Esteira inclinada",tg:[],s:1,r:"25–30 min",d:"—",rest:0,nt:"Zona 2 — 60–70% FCmax. Você deve conseguir manter uma conversa."}
+    ],
+    info:"Segunda frequência de glúteo com estímulos de encurtamento (abdução, kickback). O LISS em zona 2 acelera recuperação muscular sem catabolismo."
   }
-</script>
+];
 
+var TM={p:['ep','◆ principal'],g:['ec2','⚡ glúteo'],c:['ef','◎ core']};
+var currentDay=0;
+/* state[dayIdx][exIdx] = number of series done */
+var state={};
+
+/* ── TIMER ── */
+var timerInterval=null;
+var timerTotal=0;
+var timerLeft=0;
+var CIRC=553;
+
+function startTimer(seconds, exName, serieLabel, nextInfo){
+  if(seconds<=0) return;
+  clearInterval(timerInterval);
+  timerTotal=seconds; timerLeft=seconds;
+  document.getElementById('timerExName').textContent=exName;
+  document.getElementById('timerSerieInfo').textContent=serieLabel;
+  document.getElementById('timerNext').innerHTML=nextInfo?('<b>A seguir:</b> '+nextInfo):'';
+  updateTimerUI();
+  document.getElementById('timerOverlay').classList.add('show');
+  timerInterval=setInterval(function(){
+    timerLeft--;
+    updateTimerUI();
+    if(timerLeft<=0){ clearInterval(timerInterval); finishTimer(); }
+  },1000);
+}
+
+function updateTimerUI(){
+  var urgent=timerLeft<=10;
+  var s=document.getElementById('timerSecs');
+  var ring=document.getElementById('timerRing');
+  s.textContent=timerLeft;
+  s.className='timer-secs'+(urgent?' urgent':'');
+  ring.className='timer-ring-prog'+(urgent?' urgent':'');
+  var prog=timerTotal>0?(timerLeft/timerTotal):0;
+  ring.style.strokeDashoffset=CIRC*(1-prog);
+}
+
+function finishTimer(){
+  if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
+  document.getElementById('timerOverlay').classList.remove('show');
+}
+
+function skipTimer(){
+  clearInterval(timerInterval);
+  document.getElementById('timerOverlay').classList.remove('show');
+}
+
+function addTime(){
+  timerLeft+=30; timerTotal+=30;
+  updateTimerUI();
+}
+
+/* ── STATE ── */
+function initState(i){
+  if(!state[i]) state[i]=DAYS[i].ex.map(function(){return 0;});
+}
+
+function totalSeries(dayIdx){
+  return DAYS[dayIdx].ex.reduce(function(a,e){return a+e.s;},0);
+}
+
+function doneSeries(dayIdx){
+  initState(dayIdx);
+  return state[dayIdx].reduce(function(a,v){return a+v;},0);
+}
+
+function updateProgress(i){
+  var total=totalSeries(i);
+  var done=doneSeries(i);
+  var pct=total>0?Math.round(done/total*100):0;
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent=done+' / '+total;
+}
+
+function markSerie(dayIdx, exIdx){
+  initState(dayIdx);
+  var ex=DAYS[dayIdx].ex[exIdx];
+  var current=state[dayIdx][exIdx];
+  if(current>=ex.s) return; // all series done
+
+  var newCount=current+1;
+  state[dayIdx][exIdx]=newCount;
+  var isLastSerie=(newCount===ex.s);
+
+  // update dots
+  renderDots(dayIdx, exIdx);
+
+  // mark card done if last serie
+  if(isLastSerie){
+    var card=document.getElementById('ec-'+dayIdx+'-'+exIdx);
+    if(card) card.classList.add('done');
+  }
+
+  updateProgress(dayIdx);
+
+  // check full workout done
+  var allDone=state[dayIdx].every(function(v,i){ return v>=DAYS[dayIdx].ex[i].s; });
+  var banner=document.getElementById('banner-'+dayIdx);
+  if(banner) banner.classList.toggle('show', allDone);
+
+  // start timer (not on last serie of last exercise)
+  if(!allDone && ex.rest>0){
+    var serieLabel='Série '+newCount+' / '+ex.s+' concluída';
+    var nextInfo='';
+    if(isLastSerie){
+      // next exercise
+      var nextEx=DAYS[dayIdx].ex[exIdx+1];
+      if(nextEx) nextInfo=nextEx.n;
+    } else {
+      nextInfo='Série '+(newCount+1)+' de '+ex.n;
+    }
+    startTimer(ex.rest, ex.n, serieLabel, nextInfo);
+  }
+}
+
+function renderDots(dayIdx, exIdx){
+  var ex=DAYS[dayIdx].ex[exIdx];
+  var done=state[dayIdx]?state[dayIdx][exIdx]:0;
+  var container=document.getElementById('dots-'+dayIdx+'-'+exIdx);
+  if(!container) return;
+  container.innerHTML='';
+  for(var s=1;s<=ex.s;s++){
+    var btn=document.createElement('button');
+    btn.className='sdot'+(s<=done?' done':(s===done+1?' active-dot':''));
+    btn.textContent=s<=done?'✓':s;
+    btn.setAttribute('aria-label','Série '+s);
+    if(s>done){
+      (function(si,di,ei){ btn.addEventListener('click',function(){ if(si===state[di][ei]+1) markSerie(di,ei); }); })(s,dayIdx,exIdx);
+    }
+    container.appendChild(btn);
+  }
+}
+
+function resetDay(){
+  initState(currentDay);
+  clearInterval(timerInterval);
+  document.getElementById('timerOverlay').classList.remove('show');
+  state[currentDay]=state[currentDay].map(function(){return 0;});
+  DAYS[currentDay].ex.forEach(function(_,ei){
+    var card=document.getElementById('ec-'+currentDay+'-'+ei);
+    if(card) card.classList.remove('done');
+    renderDots(currentDay, ei);
+  });
+  var banner=document.getElementById('banner-'+currentDay);
+  if(banner) banner.classList.remove('show');
+  updateProgress(currentDay);
+}
+
+function selectDay(i){
+  currentDay=i;
+  document.querySelectorAll('#dtabs .day-tab').forEach(function(t,ti){
+    t.classList.toggle('on',ti===i);
+    t.style.borderBottomColor=ti===i?DAYS[i].c:'transparent';
+    t.style.color=ti===i?'var(--tx)':'var(--mt)';
+  });
+  document.querySelectorAll('#dpanels .panel').forEach(function(p,pi){
+    p.classList.toggle('on',pi===i);
+  });
+  document.getElementById('panelsWrap').scrollTop=0;
+  updateProgress(i);
+}
+
+/* ── BUILD ── */
+function build(){
+  var tabs=document.getElementById('dtabs');
+  var panels=document.getElementById('dpanels');
+
+  DAYS.forEach(function(d,i){
+    initState(i);
+
+    // TAB
+    var tb=document.createElement('button');
+    tb.className='day-tab'+(i===0?' on':'');
+    tb.style.borderBottomColor=i===0?d.c:'transparent';
+    tb.style.color=i===0?'var(--tx)':'var(--mt)';
+    tb.innerHTML='<span class="dtd">'+d.l+'</span><span class="dtn">'+d.n+'</span>';
+    tb.addEventListener('click',function(){selectDay(i);});
+    tabs.appendChild(tb);
+
+    // PANEL
+    var pnl=document.createElement('div');
+    pnl.className='panel'+(i===0?' on':'');
+    pnl.id='dp'+i;
+
+    var tl='<div class="tl">';
+    d.tl.forEach(function(s){tl+='<div class="ts'+(s.h?' hi':'')+'">'+s.t+'<div class="tm">'+s.m+'</div></div>';});
+    tl+='</div>';
+
+    var ex='<div class="done-banner" id="banner-'+i+'">✓ Treino concluído — excelente sessão!</div>';
+    d.ex.forEach(function(e,ei){
+      var tgs='';
+      if(e.tg&&e.tg.length){
+        tgs='<div class="etgs">';
+        e.tg.forEach(function(t){var m=TM[t];if(m)tgs+='<span class="etg '+m[0]+'">'+m[1]+'</span>';});
+        tgs+='</div>';
+      }
+      // series dots placeholder
+      var dots='<div class="series-row">'
+        +'<span class="series-label">Séries</span>'
+        +'<div class="series-dots" id="dots-'+i+'-'+ei+'"></div>'
+        +'</div>';
+
+      ex+='<div class="ec" id="ec-'+i+'-'+ei+'">'
+        +'<div class="ea" style="background:'+d.c+'"></div>'
+        +'<div class="en">Exercício '+(ei+1)+' / '+d.ex.length+'</div>'
+        +'<div class="enm">'+e.n+'</div>'
+        +tgs
+        +'<div class="ests">'
+        +'<div class="est"><span class="esl">Reps</span><span class="esv sm">'+e.r+'</span></div>'
+        +'<div class="est"><span class="esl">Descanso</span><span class="esv sm">'+e.d+'</span></div>'
+        +'</div>'
+        +dots
+        +'<div class="enote">'+e.nt+'</div>'
+        +'</div>';
+    });
+
+    pnl.innerHTML=
+      '<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.n+'</span>'
+      +'<div class="ptl">'+d.n+'</div>'
+      +'<div class="pfoc">'+d.foc+'</div>'
+      +tl+ex
+      +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>'
+      +'<div class="ftr">'
+      +'<div class="ftrtl">Diretrizes</div>'
+      +'<div class="ftr-divider"></div>'
+      +'Aquecimento: 3–4 min + 1 série leve (50%) no composto principal.<br>'
+      +'Progressão: sobe a carga quando completar todas as reps com técnica limpa por 2 sessões seguidas.<br>'
+      +'RIR: termine as séries com 1–2 reps no tanque — intensidade alta sem falha desnecessária.<br>'
+      +'Deload: a cada 6–8 semanas, reduza o volume em 40% mantendo a intensidade.'
+      +'</div>';
+
+    panels.appendChild(pnl);
+  });
+
+  // render all dots after DOM is built
+  DAYS.forEach(function(d,i){
+    d.ex.forEach(function(_,ei){ renderDots(i,ei); });
+  });
+
+  updateProgress(0);
+}
+
+build();
+</script>
 </body>
 </html>

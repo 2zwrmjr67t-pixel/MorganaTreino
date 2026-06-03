@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Morgana Workout">
+<meta name="apple-mobile-web-app-title" content="Morgana">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#c9a05a">
 <title>Morgana Workout</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -44,39 +47,56 @@ body{height:100%;display:flex;flex-direction:column;background:var(--bg);color:v
 .prog-reset{font-size:9px;color:var(--mt);background:none;border:1px solid var(--br2);border-radius:4px;padding:3px 8px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .prog-reset:active{background:var(--br2);color:var(--tx)}
 
-/* ── TIMER OVERLAY ── */
-.timer-overlay{
-  position:fixed;inset:0;z-index:100;
-  background:rgba(13,12,10,.97);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;padding:32px;
+/* ── NOTIF BANNER ── */
+/* Aparece só na primeira série, pede permissão para notificação */
+.notif-banner{
+  display:none;
+  background:var(--s2);border-bottom:1px solid var(--br);
+  padding:10px 16px;align-items:center;gap:10px;flex-shrink:0;
 }
-.timer-overlay.show{opacity:1;pointer-events:all}
-.timer-exname{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--mt);margin-bottom:4px;text-align:center;max-width:280px;line-height:1.4}
-.timer-serieinfo{font-size:13px;color:var(--ac);letter-spacing:.1em;margin-bottom:28px;text-align:center}
+.notif-banner.show{display:flex}
+.notif-banner-txt{flex:1;font-size:11px;color:var(--mt);line-height:1.4}
+.notif-banner-txt b{color:var(--tx)}
+.notif-banner-btn{font-size:10px;background:var(--ac);color:#0d0c0a;border:none;border-radius:6px;padding:7px 14px;cursor:pointer;font-weight:700;letter-spacing:.08em;font-family:inherit;white-space:nowrap;flex-shrink:0}
+.notif-banner-close{background:none;border:none;color:var(--mt);font-size:18px;cursor:pointer;padding:2px 8px;line-height:1;flex-shrink:0}
 
-.timer-ring-wrap{position:relative;width:200px;height:200px;margin-bottom:28px}
-.timer-svg{transform:rotate(-90deg)}
-.timer-ring-bg{fill:none;stroke:var(--br2);stroke-width:4}
-.timer-ring-prog{fill:none;stroke:var(--ac);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .9s linear,stroke .3s}
-.timer-ring-prog.urgent{stroke:var(--rose)}
-.timer-digits{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.timer-secs{font-size:52px;font-weight:200;color:var(--tx);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.timer-secs.urgent{color:var(--rose)}
-.timer-unit{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mt);margin-top:4px}
+/* ── TIMER BAR ── */
+/* Barra compacta no rodapé — não bloqueia a tela */
+.timer-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:var(--s1);border-top:1px solid var(--br2);
+  padding:10px 20px max(16px,env(safe-area-inset-bottom));
+  display:flex;align-items:center;gap:12px;
+  transform:translateY(110%);
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 -12px 40px rgba(0,0,0,.5);
+}
+.timer-bar.show{transform:translateY(0)}
 
-.timer-next{font-size:10px;color:var(--mt);text-align:center;margin-bottom:24px;letter-spacing:.05em;line-height:1.5;max-width:260px}
-.timer-next b{color:var(--tx);font-weight:500}
+.tbar-ring-wrap{position:relative;width:44px;height:44px;flex-shrink:0}
+.tbar-svg{transform:rotate(-90deg)}
+.tbar-ring-bg{fill:none;stroke:var(--br2);stroke-width:3.5}
+.tbar-ring-prog{fill:none;stroke:var(--ac);stroke-width:3.5;stroke-linecap:round;transition:stroke-dashoffset .85s linear,stroke .3s}
+.tbar-ring-prog.urgent{stroke:var(--rose)}
+.tbar-digits{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums;
+}
+.tbar-digits.urgent{color:var(--rose)}
 
-.timer-btns{display:flex;gap:10px}
-.timer-btn{padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-family:inherit;transition:all .2s}
-.timer-btn.skip{background:var(--br2);color:var(--mt)}
-.timer-btn.skip:active{background:var(--br);color:var(--tx)}
-.timer-btn.add{background:var(--s2);color:var(--ac);border:1px solid var(--br2)}
-.timer-btn.add:active{background:var(--br2)}
+.tbar-info{flex:1;min-width:0}
+.tbar-name{font-size:12px;font-weight:500;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.tbar-sub{font-size:10px;color:var(--mt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.tbar-btns{display:flex;gap:6px;flex-shrink:0}
+.tbar-btn{padding:8px 14px;border-radius:7px;border:none;cursor:pointer;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:inherit;transition:all .15s;font-weight:600}
+.tbar-btn.add{background:rgba(201,160,90,.15);color:var(--ac);border:1px solid rgba(201,160,90,.3)}
+.tbar-btn.add:active{background:rgba(201,160,90,.28)}
+.tbar-btn.skip{background:var(--br2);color:var(--mt)}
+.tbar-btn.skip:active{background:var(--br);color:var(--tx)}
 
 /* ── PANELS ── */
-.panels-wrap{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.panels-wrap{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:80px}
 .panel{display:none;padding:16px 20px max(36px,env(safe-area-inset-bottom))}.panel.on{display:block}
 
 .bdg{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-bottom:6px}
@@ -89,59 +109,65 @@ body{height:100%;display:flex;flex-direction:column;background:var(--bg);color:v
 .ts.hi{background:var(--s1);color:var(--tx)}
 .tm{font-size:7px;color:var(--mt)}
 
-/* EXERCISE CARD */
 .ec{background:var(--s1);border-radius:10px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--br);position:relative;overflow:hidden;transition:opacity .3s,background .3s}
 .ec.done{opacity:.4;background:var(--bg)}
 .ec.done .enm{text-decoration:line-through;color:var(--mt)}
 .ea{position:absolute;left:0;top:0;bottom:0;width:3px;transition:background .3s}
 .ec.done .ea{background:var(--green) !important}
-
 .en{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 .enm{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3;margin-bottom:8px;transition:all .3s}
-
 .etgs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .etg{font-size:9px;font-weight:500;padding:2px 7px;border-radius:8px}
 .ep{background:rgba(201,160,90,.12);color:#c9a05a}
 .ec2{background:rgba(192,112,144,.12);color:#c07090}
 .ef{background:rgba(160,122,160,.12);color:#a07aa0}
-
-/* STATS ROW */
 .ests{display:flex;gap:16px;margin-bottom:12px}
 .est{display:flex;flex-direction:column}
 .esl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em}
 .esv{font-size:17px;font-weight:500;color:var(--tx);line-height:1.2}
 .esv.sm{font-size:13px}
-
-/* SERIES DOTS */
 .series-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .series-label{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 .series-dots{display:flex;gap:6px;flex-wrap:wrap}
-.sdot{
-  width:32px;height:32px;border-radius:50%;
-  border:1.5px solid var(--br2);background:none;
-  cursor:pointer;font-size:10px;font-weight:600;color:var(--mt);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .2s;font-family:inherit;
-  -webkit-tap-highlight-color:transparent;
-}
+.sdot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--br2);background:none;cursor:pointer;font-size:10px;font-weight:600;color:var(--mt);display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit;-webkit-tap-highlight-color:transparent}
 .sdot:active{transform:scale(.88)}
 .sdot.done{background:var(--green);border-color:var(--green);color:#fff}
 .sdot.active-dot{border-color:var(--ac);color:var(--ac)}
-
 .enote{font-size:11px;color:var(--mt);line-height:1.5;padding-top:8px;border-top:1px solid var(--br)}
-
 .ibox{background:var(--s2);border-radius:8px;padding:10px 12px;margin:4px 0 12px;font-size:11px;color:var(--mt);line-height:1.6}
 .ibox b{color:var(--tx);font-weight:500}
-
 .ftr{background:var(--s1);border-radius:10px;border:1px solid var(--br);padding:13px 14px;font-size:10px;color:var(--mt);line-height:1.7;margin-top:6px}
 .ftrtl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--mt);margin-bottom:7px}
 .ftr-divider{width:20px;height:1px;background:var(--ac);opacity:.3;margin-bottom:10px}
-
 .done-banner{display:none;margin:0 0 12px;padding:12px 14px;background:rgba(106,154,106,.1);border:1px solid rgba(106,154,106,.3);border-radius:10px;font-size:12px;color:var(--green);text-align:center;letter-spacing:.05em}
 .done-banner.show{display:block}
+
+/* ── CARGA ── */
+.carga-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.carga-label{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.carga-wrap{display:flex;align-items:center;gap:6px;flex:1}
+.carga-input{
+  width:80px;background:var(--s2);border:1px solid var(--br2);
+  border-radius:7px;padding:6px 10px;
+  font-size:13px;font-weight:600;color:var(--tx);font-family:inherit;
+  text-align:center;outline:none;
+  -webkit-appearance:none;appearance:none;
+  transition:border-color .2s,background .2s;
+}
+.carga-input::placeholder{color:var(--br2);font-weight:400;font-size:12px}
+.carga-input:focus{border-color:var(--ac);background:var(--s1)}
+.carga-unit{font-size:11px;color:var(--mt)}
+.carga-saved{font-size:9px;color:var(--green);opacity:0;transition:opacity .4s;letter-spacing:.06em}
 </style>
 </head>
 <body>
+
+<!-- Banner de permissão de notificação — aparece inline, não bloqueia tela -->
+<div class="notif-banner" id="notifBanner">
+  <div class="notif-banner-txt"><b>Ativar aviso de descanso?</b><br>Notifica quando o timer terminar.</div>
+  <button class="notif-banner-btn" onclick="requestNotifPermission()">Ativar</button>
+  <button class="notif-banner-close" onclick="dismissNotifBanner()">✕</button>
+</div>
 
 <div class="hdr">
   <div class="hdr-eyebrow">Programa de hipertrofia feminina</div>
@@ -169,28 +195,23 @@ body{height:100%;display:flex;flex-direction:column;background:var(--bg);color:v
   <div id="dpanels"></div>
 </div>
 
-<!-- TIMER OVERLAY -->
-<div class="timer-overlay" id="timerOverlay">
-  <div class="timer-exname" id="timerExName"></div>
-  <div class="timer-serieinfo" id="timerSerieInfo"></div>
-
-  <div class="timer-ring-wrap">
-    <svg class="timer-svg" width="200" height="200" viewBox="0 0 200 200">
-      <circle class="timer-ring-bg" cx="100" cy="100" r="88"/>
-      <circle class="timer-ring-prog" id="timerRing" cx="100" cy="100" r="88"
-        stroke-dasharray="553" stroke-dashoffset="0"/>
+<!-- Timer bar — rodapé persistente, não bloqueia conteúdo -->
+<div class="timer-bar" id="timerBar">
+  <div class="tbar-ring-wrap">
+    <svg class="tbar-svg" width="44" height="44" viewBox="0 0 44 44">
+      <circle class="tbar-ring-bg" cx="22" cy="22" r="18"/>
+      <circle class="tbar-ring-prog" id="tbarRing" cx="22" cy="22" r="18"
+        stroke-dasharray="113" stroke-dashoffset="0"/>
     </svg>
-    <div class="timer-digits">
-      <div class="timer-secs" id="timerSecs">60</div>
-      <div class="timer-unit">segundos</div>
-    </div>
+    <div class="tbar-digits" id="tbarDigits">0</div>
   </div>
-
-  <div class="timer-next" id="timerNext"></div>
-
-  <div class="timer-btns">
-    <button class="timer-btn add" onclick="addTime()">+30s</button>
-    <button class="timer-btn skip" onclick="skipTimer()">Pular</button>
+  <div class="tbar-info">
+    <div class="tbar-name" id="tbarName"></div>
+    <div class="tbar-sub" id="tbarSub"></div>
+  </div>
+  <div class="tbar-btns">
+    <button class="tbar-btn add" onclick="addTime()">+30s</button>
+    <button class="tbar-btn skip" onclick="skipTimer()">Pular</button>
   </div>
 </div>
 
@@ -277,133 +298,200 @@ var DAYS=[
 
 var TM={p:['ep','◆ principal'],g:['ec2','⚡ glúteo'],c:['ef','◎ core']};
 var currentDay=0;
-/* state[dayIdx][exIdx] = number of series done */
 var state={};
 
-/* ── TIMER ── */
-var timerInterval=null;
-var timerTotal=0;
-var timerLeft=0;
-var CIRC=553;
-
-function startTimer(seconds, exName, serieLabel, nextInfo){
-  if(seconds<=0) return;
-  clearInterval(timerInterval);
-  timerTotal=seconds; timerLeft=seconds;
-  document.getElementById('timerExName').textContent=exName;
-  document.getElementById('timerSerieInfo').textContent=serieLabel;
-  document.getElementById('timerNext').innerHTML=nextInfo?('<b>A seguir:</b> '+nextInfo):'';
-  updateTimerUI();
-  document.getElementById('timerOverlay').classList.add('show');
-  timerInterval=setInterval(function(){
-    timerLeft--;
-    updateTimerUI();
-    if(timerLeft<=0){ clearInterval(timerInterval); finishTimer(); }
-  },1000);
+/* ── PWA ── */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
 }
 
-function updateTimerUI(){
-  var urgent=timerLeft<=10;
-  var s=document.getElementById('timerSecs');
-  var ring=document.getElementById('timerRing');
-  s.textContent=timerLeft;
-  s.className='timer-secs'+(urgent?' urgent':'');
-  ring.className='timer-ring-prog'+(urgent?' urgent':'');
-  var prog=timerTotal>0?(timerLeft/timerTotal):0;
-  ring.style.strokeDashoffset=CIRC*(1-prog);
+/* ── NOTIFICAÇÕES iOS
+   Regras reais do iOS Safari:
+   - Só funciona se o PWA estiver instalado na tela inicial (standalone)
+   - Precisa de gesto do usuário para pedir permissão
+   - new Notification() funciona quando o app está aberto ou recente
+   - Não há vibração no iOS via navigator.vibrate
+   - Não usamos SW para enviar notificação — não é confiável no iOS
+── */
+var notifEnabled = false;
+var _bannerShown = false;
+
+function initNotifications(){
+  if(!('Notification' in window)) return;
+  if(Notification.permission === 'granted'){
+    notifEnabled = true;
+  }
+  // Não pedimos permissão automaticamente — precisa de gesto do usuário
+}
+
+function maybeShowNotifBanner(){
+  if(_bannerShown) return;
+  if(!('Notification' in window)) return;
+  if(Notification.permission !== 'default') return;
+  // Só mostra se estiver em modo standalone (instalado) ou desktop
+  var isStandalone = window.navigator.standalone === true
+    || window.matchMedia('(display-mode: standalone)').matches;
+  // Mostra em standalone OU em desktop (para testes)
+  if(!isStandalone && /iPhone|iPad|iPod/.test(navigator.userAgent)) return;
+  _bannerShown = true;
+  document.getElementById('notifBanner').classList.add('show');
+}
+
+function requestNotifPermission(){
+  dismissNotifBanner();
+  if(!('Notification' in window)) return;
+  Notification.requestPermission().then(function(p){
+    if(p === 'granted') notifEnabled = true;
+  });
+}
+
+function dismissNotifBanner(){
+  _bannerShown = true;
+  document.getElementById('notifBanner').classList.remove('show');
+}
+
+function fireNotification(body){
+  if(!notifEnabled) return;
+  if(Notification.permission !== 'granted') return;
+  try{
+    // Caminho direto — funciona no iOS Safari com PWA instalado e app ativo/recente
+    new Notification('Morgana Workout', {
+      body: body,
+      icon: 'icon-192.png',
+      tag: 'timer',
+      silent: false
+    });
+  }catch(e){}
+}
+
+/* ── TIMER ── */
+var timerInterval = null;
+var timerEndTime = 0;   // timestamp absoluto — resistente a suspensão curta do iOS
+var timerTotal = 0;
+var timerLeft = 0;
+var timerNextInfo = '';
+var CIRC = 113; // 2*pi*18 ≈ 113
+
+function startTimer(seconds, exName, serieLabel, nextInfo){
+  if(seconds <= 0) return;
+  clearInterval(timerInterval);
+  timerTotal = seconds;
+  timerLeft = seconds;
+  timerEndTime = Date.now() + seconds * 1000;
+  timerNextInfo = nextInfo || '';
+
+  document.getElementById('tbarName').textContent = exName;
+  document.getElementById('tbarSub').textContent = serieLabel + (nextInfo ? ' · A seguir: ' + nextInfo : '');
+  updateTimerBar();
+  document.getElementById('timerBar').classList.add('show');
+
+  // Poll a 500ms — usa timestamp absoluto para compensar
+  // se o iOS suspender o timer brevemente (ex: tela desligada por 5s)
+  timerInterval = setInterval(function(){
+    timerLeft = Math.max(0, Math.round((timerEndTime - Date.now()) / 1000));
+    updateTimerBar();
+    if(timerLeft <= 0){
+      clearInterval(timerInterval);
+      finishTimer();
+    }
+  }, 500);
+}
+
+function updateTimerBar(){
+  var urgent = timerLeft <= 10;
+  var d = document.getElementById('tbarDigits');
+  var ring = document.getElementById('tbarRing');
+  d.textContent = timerLeft;
+  d.className = 'tbar-digits' + (urgent ? ' urgent' : '');
+  ring.className = 'tbar-ring-prog' + (urgent ? ' urgent' : '');
+  var prog = timerTotal > 0 ? (timerLeft / timerTotal) : 0;
+  ring.style.strokeDashoffset = CIRC * (1 - prog);
 }
 
 function finishTimer(){
-  if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
-  document.getElementById('timerOverlay').classList.remove('show');
+  document.getElementById('timerBar').classList.remove('show');
+  var body = 'Descanse concluído' + (timerNextInfo ? ' — ' + timerNextInfo : '');
+  fireNotification(body);
 }
 
 function skipTimer(){
   clearInterval(timerInterval);
-  document.getElementById('timerOverlay').classList.remove('show');
+  document.getElementById('timerBar').classList.remove('show');
 }
 
 function addTime(){
-  timerLeft+=30; timerTotal+=30;
-  updateTimerUI();
+  timerLeft += 30;
+  timerTotal += 30;
+  timerEndTime += 30000;
+  updateTimerBar();
 }
 
 /* ── STATE ── */
 function initState(i){
-  if(!state[i]) state[i]=DAYS[i].ex.map(function(){return 0;});
+  if(!state[i]) state[i] = DAYS[i].ex.map(function(){ return 0; });
 }
-
-function totalSeries(dayIdx){
-  return DAYS[dayIdx].ex.reduce(function(a,e){return a+e.s;},0);
-}
-
-function doneSeries(dayIdx){
-  initState(dayIdx);
-  return state[dayIdx].reduce(function(a,v){return a+v;},0);
-}
+function totalSeries(d){ return DAYS[d].ex.reduce(function(a,e){ return a+e.s; },0); }
+function doneSeries(d){ initState(d); return state[d].reduce(function(a,v){ return a+v; },0); }
 
 function updateProgress(i){
-  var total=totalSeries(i);
-  var done=doneSeries(i);
-  var pct=total>0?Math.round(done/total*100):0;
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent=done+' / '+total;
+  var total = totalSeries(i), done = doneSeries(i);
+  var pct = total > 0 ? Math.round(done/total*100) : 0;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = done + ' / ' + total;
 }
 
 function markSerie(dayIdx, exIdx){
   initState(dayIdx);
-  var ex=DAYS[dayIdx].ex[exIdx];
-  var current=state[dayIdx][exIdx];
-  if(current>=ex.s) return; // all series done
+  maybeShowNotifBanner(); // mostra banner na primeira série
 
-  var newCount=current+1;
-  state[dayIdx][exIdx]=newCount;
-  var isLastSerie=(newCount===ex.s);
+  var ex = DAYS[dayIdx].ex[exIdx];
+  var current = state[dayIdx][exIdx];
+  if(current >= ex.s) return;
 
-  // update dots
+  var newCount = current + 1;
+  state[dayIdx][exIdx] = newCount;
+  var isLastSerie = (newCount === ex.s);
+
   renderDots(dayIdx, exIdx);
-
-  // mark card done if last serie
   if(isLastSerie){
-    var card=document.getElementById('ec-'+dayIdx+'-'+exIdx);
+    var card = document.getElementById('ec-'+dayIdx+'-'+exIdx);
     if(card) card.classList.add('done');
   }
 
   updateProgress(dayIdx);
 
-  // check full workout done
-  var allDone=state[dayIdx].every(function(v,i){ return v>=DAYS[dayIdx].ex[i].s; });
-  var banner=document.getElementById('banner-'+dayIdx);
+  var allDone = state[dayIdx].every(function(v,i){ return v >= DAYS[dayIdx].ex[i].s; });
+  var banner = document.getElementById('banner-'+dayIdx);
   if(banner) banner.classList.toggle('show', allDone);
 
-  // start timer (not on last serie of last exercise)
-  if(!allDone && ex.rest>0){
-    var serieLabel='Série '+newCount+' / '+ex.s+' concluída';
-    var nextInfo='';
+  if(!allDone && ex.rest > 0){
+    var serieLabel = 'Série ' + newCount + '/' + ex.s;
+    var nextInfo = '';
     if(isLastSerie){
-      // next exercise
-      var nextEx=DAYS[dayIdx].ex[exIdx+1];
-      if(nextEx) nextInfo=nextEx.n;
+      var nextEx = DAYS[dayIdx].ex[exIdx+1];
+      if(nextEx) nextInfo = nextEx.n;
     } else {
-      nextInfo='Série '+(newCount+1)+' de '+ex.n;
+      nextInfo = 'Série ' + (newCount+1) + ' de ' + ex.n;
     }
     startTimer(ex.rest, ex.n, serieLabel, nextInfo);
   }
 }
 
 function renderDots(dayIdx, exIdx){
-  var ex=DAYS[dayIdx].ex[exIdx];
-  var done=state[dayIdx]?state[dayIdx][exIdx]:0;
-  var container=document.getElementById('dots-'+dayIdx+'-'+exIdx);
+  var ex = DAYS[dayIdx].ex[exIdx];
+  var done = state[dayIdx] ? state[dayIdx][exIdx] : 0;
+  var container = document.getElementById('dots-'+dayIdx+'-'+exIdx);
   if(!container) return;
-  container.innerHTML='';
-  for(var s=1;s<=ex.s;s++){
-    var btn=document.createElement('button');
-    btn.className='sdot'+(s<=done?' done':(s===done+1?' active-dot':''));
-    btn.textContent=s<=done?'✓':s;
+  container.innerHTML = '';
+  for(var s = 1; s <= ex.s; s++){
+    var btn = document.createElement('button');
+    btn.className = 'sdot' + (s<=done?' done':(s===done+1?' active-dot':''));
+    btn.textContent = s<=done ? '✓' : s;
     btn.setAttribute('aria-label','Série '+s);
-    if(s>done){
-      (function(si,di,ei){ btn.addEventListener('click',function(){ if(si===state[di][ei]+1) markSerie(di,ei); }); })(s,dayIdx,exIdx);
+    if(s > done){
+      (function(si,di,ei){
+        btn.addEventListener('click',function(){ if(si===state[di][ei]+1) markSerie(di,ei); });
+      })(s, dayIdx, exIdx);
     }
     container.appendChild(btn);
   }
@@ -412,73 +500,102 @@ function renderDots(dayIdx, exIdx){
 function resetDay(){
   initState(currentDay);
   clearInterval(timerInterval);
-  document.getElementById('timerOverlay').classList.remove('show');
-  state[currentDay]=state[currentDay].map(function(){return 0;});
+  document.getElementById('timerBar').classList.remove('show');
+  state[currentDay] = state[currentDay].map(function(){ return 0; });
   DAYS[currentDay].ex.forEach(function(_,ei){
-    var card=document.getElementById('ec-'+currentDay+'-'+ei);
+    var card = document.getElementById('ec-'+currentDay+'-'+ei);
     if(card) card.classList.remove('done');
     renderDots(currentDay, ei);
   });
-  var banner=document.getElementById('banner-'+currentDay);
+  var banner = document.getElementById('banner-'+currentDay);
   if(banner) banner.classList.remove('show');
   updateProgress(currentDay);
 }
 
 function selectDay(i){
-  currentDay=i;
+  currentDay = i;
   document.querySelectorAll('#dtabs .day-tab').forEach(function(t,ti){
-    t.classList.toggle('on',ti===i);
-    t.style.borderBottomColor=ti===i?DAYS[i].c:'transparent';
-    t.style.color=ti===i?'var(--tx)':'var(--mt)';
+    t.classList.toggle('on', ti===i);
+    t.style.borderBottomColor = ti===i ? DAYS[i].c : 'transparent';
+    t.style.color = ti===i ? 'var(--tx)' : 'var(--mt)';
   });
   document.querySelectorAll('#dpanels .panel').forEach(function(p,pi){
-    p.classList.toggle('on',pi===i);
+    p.classList.toggle('on', pi===i);
   });
-  document.getElementById('panelsWrap').scrollTop=0;
+  document.getElementById('panelsWrap').scrollTop = 0;
   updateProgress(i);
+}
+
+/* ── CARGA (localStorage) ── */
+function cargaKey(dayIdx, exIdx){
+  return 'carga_' + dayIdx + '_' + exIdx;
+}
+function loadCarga(dayIdx, exIdx){
+  try{ return localStorage.getItem(cargaKey(dayIdx,exIdx)) || ''; }catch(e){ return ''; }
+}
+function saveCarga(dayIdx, exIdx, val){
+  try{ localStorage.setItem(cargaKey(dayIdx,exIdx), val); }catch(e){}
+}
+
+function onCargaInput(dayIdx, exIdx, input){
+  var val = input.value.trim();
+  saveCarga(dayIdx, exIdx, val);
+  // flash "salvo"
+  var saved = document.getElementById('carga-saved-'+dayIdx+'-'+exIdx);
+  if(saved){
+    saved.style.opacity='1';
+    clearTimeout(saved._t);
+    saved._t = setTimeout(function(){ saved.style.opacity='0'; }, 1400);
+  }
 }
 
 /* ── BUILD ── */
 function build(){
-  var tabs=document.getElementById('dtabs');
-  var panels=document.getElementById('dpanels');
+  var tabs = document.getElementById('dtabs');
+  var panels = document.getElementById('dpanels');
 
   DAYS.forEach(function(d,i){
     initState(i);
 
-    // TAB
-    var tb=document.createElement('button');
-    tb.className='day-tab'+(i===0?' on':'');
-    tb.style.borderBottomColor=i===0?d.c:'transparent';
-    tb.style.color=i===0?'var(--tx)':'var(--mt)';
-    tb.innerHTML='<span class="dtd">'+d.l+'</span><span class="dtn">'+d.n+'</span>';
-    tb.addEventListener('click',function(){selectDay(i);});
+    var tb = document.createElement('button');
+    tb.className = 'day-tab' + (i===0?' on':'');
+    tb.style.borderBottomColor = i===0 ? d.c : 'transparent';
+    tb.style.color = i===0 ? 'var(--tx)' : 'var(--mt)';
+    tb.innerHTML = '<span class="dtd">'+d.l+'</span><span class="dtn">'+d.n+'</span>';
+    tb.addEventListener('click', function(){ selectDay(i); });
     tabs.appendChild(tb);
 
-    // PANEL
-    var pnl=document.createElement('div');
-    pnl.className='panel'+(i===0?' on':'');
-    pnl.id='dp'+i;
+    var pnl = document.createElement('div');
+    pnl.className = 'panel' + (i===0?' on':'');
+    pnl.id = 'dp'+i;
 
-    var tl='<div class="tl">';
-    d.tl.forEach(function(s){tl+='<div class="ts'+(s.h?' hi':'')+'">'+s.t+'<div class="tm">'+s.m+'</div></div>';});
-    tl+='</div>';
+    var tl = '<div class="tl">';
+    d.tl.forEach(function(s){ tl += '<div class="ts'+(s.h?' hi':'')+'">'+s.t+'<div class="tm">'+s.m+'</div></div>'; });
+    tl += '</div>';
 
-    var ex='<div class="done-banner" id="banner-'+i+'">✓ Treino concluído — excelente sessão!</div>';
+    var ex = '<div class="done-banner" id="banner-'+i+'">✓ Treino concluído — excelente sessão!</div>';
     d.ex.forEach(function(e,ei){
-      var tgs='';
-      if(e.tg&&e.tg.length){
-        tgs='<div class="etgs">';
-        e.tg.forEach(function(t){var m=TM[t];if(m)tgs+='<span class="etg '+m[0]+'">'+m[1]+'</span>';});
-        tgs+='</div>';
+      var tgs = '';
+      if(e.tg && e.tg.length){
+        tgs = '<div class="etgs">';
+        e.tg.forEach(function(t){ var m=TM[t]; if(m) tgs+='<span class="etg '+m[0]+'">'+m[1]+'</span>'; });
+        tgs += '</div>';
       }
-      // series dots placeholder
-      var dots='<div class="series-row">'
+      var dots = '<div class="series-row">'
         +'<span class="series-label">Séries</span>'
         +'<div class="series-dots" id="dots-'+i+'-'+ei+'"></div>'
         +'</div>';
 
-      ex+='<div class="ec" id="ec-'+i+'-'+ei+'">'
+      var carga = '<div class="carga-row">'
+        +'<span class="carga-label">Carga</span>'
+        +'<div class="carga-wrap">'
+        +'<input class="carga-input" id="carga-'+i+'-'+ei+'" type="number" inputmode="decimal" placeholder="—" min="0" step="0.5">'
+        +'<span class="carga-unit">kg</span>'
+        +'<span class="carga-saved" id="carga-saved-'+i+'-'+ei+'">salvo ✓</span>'
+        +'</div>'
+        +'</div>';
+
+      ex += '<div class="ec" id="ec-'+i+'-'+ei+'">'
         +'<div class="ea" style="background:'+d.c+'"></div>'
         +'<div class="en">Exercício '+(ei+1)+' / '+d.ex.length+'</div>'
         +'<div class="enm">'+e.n+'</div>'
@@ -487,12 +604,13 @@ function build(){
         +'<div class="est"><span class="esl">Reps</span><span class="esv sm">'+e.r+'</span></div>'
         +'<div class="est"><span class="esl">Descanso</span><span class="esv sm">'+e.d+'</span></div>'
         +'</div>'
+        +carga
         +dots
         +'<div class="enote">'+e.nt+'</div>'
         +'</div>';
     });
 
-    pnl.innerHTML=
+    pnl.innerHTML =
       '<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.n+'</span>'
       +'<div class="ptl">'+d.n+'</div>'
       +'<div class="pfoc">'+d.foc+'</div>'
@@ -510,12 +628,26 @@ function build(){
     panels.appendChild(pnl);
   });
 
-  // render all dots after DOM is built
   DAYS.forEach(function(d,i){
     d.ex.forEach(function(_,ei){ renderDots(i,ei); });
   });
 
+  // Carregar e vincular campos de carga
+  DAYS.forEach(function(d,i){
+    d.ex.forEach(function(_,ei){
+      var inp = document.getElementById('carga-'+i+'-'+ei);
+      if(!inp) return;
+      var saved = loadCarga(i,ei);
+      if(saved !== '') inp.value = saved;
+      (function(di,eii,input){
+        input.addEventListener('change', function(){ onCargaInput(di,eii,input); });
+        input.addEventListener('blur',   function(){ onCargaInput(di,eii,input); });
+      })(i,ei,inp);
+    });
+  });
+
   updateProgress(0);
+  initNotifications();
 }
 
 build();

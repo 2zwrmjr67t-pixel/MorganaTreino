@@ -172,7 +172,7 @@ body{height:100%;display:flex;flex-direction:column;background:var(--bg);color:v
 <div class="hdr">
   <div class="hdr-eyebrow">Programa de hipertrofia feminina</div>
   <div class="hdr-title"><strong>Morgana</strong><br><em>Workout</em></div>
-  <div class="hdr-sub">Glúteo · Pernas · Abdômen · Costas &nbsp;—&nbsp; Avançada · Definição</div>
+  <div class="hdr-sub">Glúteo · Pernas · Peito · Costas · Core &nbsp;—&nbsp; Avançada · Definição</div>
   <div class="hdr-divider"></div>
 </div>
 
@@ -220,79 +220,81 @@ body{height:100%;display:flex;flex-direction:column;background:var(--bg);color:v
 var DAYS=[
   {
     l:"Seg",n:"Glúteo A",c:"#c9a05a",
-    foc:"Ênfase em glúteo máximo e cadeia posterior — composto principal é o Hip Thrust",
-    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Hip Thrust",m:"14min",h:1},{t:"Stiff",m:"11min",h:1},{t:"Sumô",m:"9min",h:1},{t:"Abdução",m:"7min",h:1},{t:"Mesa flex.",m:"7min",h:1},{t:"Elev. pélv.",m:"6min",h:1}],
+    foc:"Glúteo máximo + cadeia posterior + peitoral — elimina redundância de isquiotibiais e insere cadeia anterior",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Hip Thrust",m:"14min",h:1},{t:"Stiff",m:"11min",h:1},{t:"Sumô",m:"9min",h:1},{t:"Abdução cabo",m:"7min",h:1},{t:"Supino",m:"8min",h:1},{t:"Elev. pélv.",m:"6min",h:1}],
     ex:[
       {n:"Hip Thrust com Barra",tg:["p","g"],s:4,r:"8–10",d:"90s",rest:90,nt:"Composto principal da semana — progrida carga toda semana. Queixo para o peito, core ativado, lombar neutra."},
-      {n:"Stiff com Barra ou Halteres",tg:["g"],s:4,r:"8–10",d:"75s",rest:75,nt:"Coluna neutra — não flexione lombar sob carga. Sinta o alongamento dos isquiotibiais."},
+      {n:"Stiff com Barra ou Halteres",tg:["g"],s:4,r:"8–10",d:"75s",rest:75,nt:"Isquiotibiais em alongamento — coluna neutra, não flexione lombar sob carga. Única exposição direta de isquio na semana."},
       {n:"Agachamento Sumô com Halter",tg:[],s:3,r:"10–12",d:"75s",rest:75,nt:"Adutores + glúteo médio. Joelhos apontam para fora durante todo o movimento."},
-      {n:"Abdução no Cabo (pé no cabo)",tg:["g"],s:3,r:"15",d:"60s",rest:60,nt:"Cada lado. Glúteo médio e mínimo — estabilidade lateral do quadril."},
-      {n:"Mesa Flexora Bilateral",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Isquiotibiais — bilateral, sem assimetria. Amplitude total."},
+      {n:"Abdução no Cabo (pé no cabo)",tg:["g"],s:3,r:"15",d:"60s",rest:60,nt:"Cada lado. Glúteo médio e mínimo — estabilidade lateral do quadril. Sem balançar o tronco."},
+      {n:"Supino com Halteres",tg:["p"],s:3,r:"10–12",d:"75s",rest:75,nt:"Peitoral na cadeia anterior — equilibra o desenvolvimento de ombro e melhora postura. Cotovelos a 45° do corpo, não abertos."},
       {n:"Elevação Pélvica Unilateral",tg:["g"],s:3,r:"12",d:"60s",rest:60,nt:"Cada lado. Finisher de glúteo — apoio firme no banco, quadril alinha no topo."}
     ],
-    info:"19 séries totais. Hip Thrust é o exercício mais importante de toda a semana."
+    info:"Mesa flexora removida — isquiotibiais já trabalham no Stiff. Supino inserido para equilibrar cadeia anterior e eliminar o zero de peitoral na semana."
   },
   {
     l:"Ter",n:"Costas",c:"#5a8a7a",
-    foc:"Largura, espessura e postura — bíceps ao final + core integrado",
-    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Barra fixa",m:"13min",h:1},{t:"Remada",m:"11min",h:1},{t:"Puxada",m:"9min",h:1},{t:"Rem. baixa",m:"8min",h:1},{t:"Face pull",m:"7min",h:1},{t:"Bíceps",m:"7min",h:1}],
+    foc:"Largura, espessura e postura — volume redistribuído, bíceps e core ao final",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Barra fixa",m:"13min",h:1},{t:"Remada",m:"10min",h:1},{t:"Puxada",m:"8min",h:1},{t:"Rem. baixa",m:"7min",h:1},{t:"Face pull",m:"7min",h:1},{t:"Bíceps",m:"8min",h:1},{t:"Core",m:"6min",h:1}],
     ex:[
-      {n:"Barra Fixa ou Puxada Assistida",tg:["p"],s:4,r:"6–10",d:"90s",rest:90,nt:"Pegada aberta — largura. Cotovelos apontam para o chão na descida."},
-      {n:"Remada c/ Halteres (chest supported)",tg:[],s:4,r:"8–10",d:"75s",rest:75,nt:"Banco inclinado elimina variáveis lombares — foco total na espessura das costas."},
+      {n:"Barra Fixa ou Puxada Assistida",tg:["p"],s:4,r:"6–10",d:"90s",rest:90,nt:"Pegada aberta — largura. Cotovelos apontam para o chão na descida. Amplitude completa."},
+      {n:"Remada c/ Halteres (chest supported)",tg:[],s:3,r:"8–10",d:"75s",rest:75,nt:"Banco inclinado elimina variáveis lombares — foco total na espessura. Reduzido de 4 para 3 séries para descomprimir o volume total."},
       {n:"Puxada Fechada Supinada",tg:[],s:3,r:"10–12",d:"60s",rest:60,nt:"Bíceps + dorsal baixo. Cotovelos apontam para o chão ao final do movimento."},
       {n:"Remada Baixa no Cabo",tg:[],s:3,r:"12",d:"60s",rest:60,nt:"Retração escapular completa. Postura — médio e inferior do trapézio."},
       {n:"Face Pull com Corda",tg:[],s:3,r:"15–20",d:"60s",rest:60,nt:"Manguito rotador + postura. Puxe para a testa, não para o queixo."},
-      {n:"Rosca Direta com Barra EZ",tg:["p"],s:3,r:"10–12",d:"75s",rest:75,nt:"Sem balanço de tronco — isola bíceps com qualidade."},
+      {n:"Rosca Direta com Barra EZ",tg:["p"],s:3,r:"10–12",d:"75s",rest:75,nt:"Sem balanço de tronco — isola bíceps com qualidade. Composto principal de braço."},
       {n:"Rosca Martelo Alternada",tg:[],s:3,r:"12",d:"60s",rest:60,nt:"Braquiorradial e bíceps. Alternada, não simultânea."},
       {n:"Core: Prancha + Dead Bug",tg:["c"],s:3,r:"40s/10/lado",d:"45s",rest:45,nt:"Integrado ao final. Prancha ativa o anterior; dead bug treina controle lombar."}
     ],
-    info:"Costas bem desenvolvidas criam a silhueta em V que valoriza cintura e quadril."
+    info:"Volume de remada reduzido de 4 para 3 séries — 23 séries era excessivo para uma sessão única. Qualidade de execução aumenta com o ajuste."
   },
   {
     l:"Qua",n:"Quadríceps",c:"#7a6bbf",
-    foc:"Ênfase anterior + core com carga — maior volume de abdômen da semana",
-    tl:[{t:"Aquec.",m:"4min",h:0},{t:"Agachamento",m:"14min",h:1},{t:"Leg press",m:"11min",h:1},{t:"Búlgaro",m:"9min",h:1},{t:"Extensora",m:"7min",h:1},{t:"Panturrilha",m:"6min",h:1},{t:"Core",m:"8min",h:1}],
+    foc:"Ênfase anterior + panturrilha com 2ª frequência + core com carga",
+    tl:[{t:"Aquec.",m:"4min",h:0},{t:"Agachamento",m:"14min",h:1},{t:"Leg press",m:"10min",h:1},{t:"Búlgaro",m:"9min",h:1},{t:"Extensora",m:"7min",h:1},{t:"Panturrilha",m:"7min",h:1},{t:"Core",m:"8min",h:1}],
     ex:[
       {n:"Agachamento Livre",tg:["p"],s:4,r:"6–8",d:"90s",rest:90,nt:"Composto principal do dia. Descida controlada — 3s na descida. Aquecimento progressivo obrigatório."},
       {n:"Leg Press 45° (pés baixos e fechados)",tg:[],s:3,r:"10–12",d:"75s",rest:75,nt:"Posição quadríceps dominante. Lombar colada ao banco durante toda a amplitude."},
       {n:"Afundo Búlgaro com Halteres",tg:["g"],s:3,r:"10",d:"75s",rest:75,nt:"Cada lado. Glúteo + quadríceps unilateral. Tronco levemente inclinado para frente."},
       {n:"Cadeira Extensora",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Isolamento de quadríceps sem carga axial na coluna. Pausa de 1s no topo."},
-      {n:"Panturrilha em Pé na Máquina",tg:[],s:4,r:"15–20",d:"45s",rest:45,nt:"Amplitude total — calcâneo abaixo da plataforma. Pausa de 1s no alongamento."},
+      {n:"Panturrilha em Pé na Máquina",tg:[],s:4,r:"15–20",d:"45s",rest:45,nt:"1ª frequência de panturrilha. Amplitude total — calcâneo abaixo da plataforma. Pausa de 1s no alongamento."},
       {n:"Core: Pallof Press no Cabo",tg:["c"],s:3,r:"12/lado",d:"45s",rest:45,nt:"Anti-rotação — oblíquos. Braços estendidos na frente, resistir à rotação."},
       {n:"Core: Prancha Lateral",tg:["c"],s:3,r:"35s/lado",d:"45s",rest:45,nt:"Oblíquos + estabilidade lateral. Quadril não cai."},
       {n:"Core: Crunch no Cabo",tg:["c"],s:3,r:"15–20",d:"60s",rest:60,nt:"Reto abdominal com carga real — progressão de carga aqui gera resultado."}
     ],
-    info:"Crunch no cabo com carga progressiva é um dos exercícios mais eficientes para definição abdominal."
+    info:"Sem alterações estruturais neste dia — era o mais equilibrado. Panturrilha mantida como 1ª das 2 frequências semanais."
   },
   {
-    l:"Qui",n:"Ombro",c:"#6a9a6a",
-    foc:"Ombros 3D + tríceps + core de força — base para a ilusão de cintura",
-    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Desenvolv.",m:"13min",h:1},{t:"Elev. lat.",m:"9min",h:1},{t:"Elev. front.",m:"8min",h:1},{t:"Tríceps",m:"10min",h:1},{t:"Core",m:"7min",h:1}],
+    l:"Qui",n:"Ombro + Peito",c:"#6a9a6a",
+    foc:"Ombros 3D + peitoral inclinado + tríceps reduzido + core — cadeia anterior completa",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Desenvolv.",m:"13min",h:1},{t:"Elev. lat.",m:"9min",h:1},{t:"Supino incl.",m:"9min",h:1},{t:"Crucifixo",m:"7min",h:1},{t:"Tríceps",m:"8min",h:1},{t:"Core",m:"7min",h:1}],
     ex:[
       {n:"Desenvolvimento com Halteres",tg:["p"],s:4,r:"8–10",d:"90s",rest:90,nt:"Sentada, encosto a 80°. Não eleve o cotovelo além do plano do ombro."},
       {n:"Elevação Lateral (cabo unilateral)",tg:[],s:4,r:"15–20",d:"60s",rest:60,nt:"Tensão constante ao longo de toda a amplitude. Sem balanço — movimento controlado."},
       {n:"Elevação Frontal com Anilha",tg:[],s:3,r:"12",d:"60s",rest:60,nt:"Feixe anterior do deltoide. Cotovelo levemente flexionado."},
+      {n:"Supino Inclinado com Halteres",tg:["p"],s:3,r:"10–12",d:"75s",rest:75,nt:"2ª exposição de peitoral — feixe clavicular. Complementa o supino plano da segunda. Cotovelos a 45°."},
+      {n:"Crucifixo no Cabo (cruzado baixo)",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Tensão constante no peitoral — cabo mantém carga ao longo de toda amplitude. Ótimo para definição."},
       {n:"Tríceps Corda no Cabo",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Cotovelos fixos ao lado do corpo. Extensão total na descida, abre a corda no final."},
-      {n:"Tríceps Testa com Barra EZ",tg:[],s:3,r:"10–12",d:"60s",rest:60,nt:"Úmero perpendicular ao chão — não deixe cair para trás."},
-      {n:"Tríceps Unilateral no Cabo",tg:[],s:3,r:"12/lado",d:"60s",rest:60,nt:"Finalização. Cada lado — simetria e volume de isolamento."},
+      {n:"Tríceps Testa com Barra EZ",tg:[],s:3,r:"10–12",d:"60s",rest:60,nt:"Úmero perpendicular ao chão. Tríceps longo — complementar à corda. Unilateral removido por redundância."},
       {n:"Core: Ab Wheel",tg:["c"],s:3,r:"10",d:"60s",rest:60,nt:"Força de core total. Lombar não arqueie no retorno."},
       {n:"Core: Elevação de Pernas",tg:["c"],s:3,r:"15",d:"60s",rest:60,nt:"Região abdominal inferior. Controle na descida — não deixe cair."}
     ],
-    info:"Ombro bem desenvolvido cria ilusão de cintura mais fina — efeito estético que complementa diretamente glúteo e pernas."
+    info:"Tríceps Unilateral removido — redundante com Corda e Testa. Supino Inclinado e Crucifixo inseridos como 2ª frequência de peitoral. Core mantido."
   },
   {
     l:"Sex",n:"Glúteo B",c:"#c07090",
-    foc:"2ª frequência de glúteo — estímulos diferentes da segunda + cardio LISS",
-    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Leg press",m:"12min",h:1},{t:"Kickback",m:"9min",h:1},{t:"Abdução",m:"9min",h:1},{t:"Leg curl",m:"8min",h:1},{t:"Afundo",m:"7min",h:1},{t:"LISS",m:"25min",h:1}],
+    foc:"2ª frequência de glúteo — adução substitui abdução duplicada + panturrilha + LISS",
+    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Leg press",m:"12min",h:1},{t:"Kickback",m:"9min",h:1},{t:"Adução",m:"8min",h:1},{t:"Leg curl",m:"7min",h:1},{t:"Panturrilha",m:"6min",h:1},{t:"Afundo",m:"6min",h:1},{t:"LISS",m:"20min",h:1}],
     ex:[
       {n:"Leg Press (pés altos e abertos)",tg:["p","g"],s:4,r:"10–12",d:"90s",rest:90,nt:"Posição glúteo dominante. Amplitude completa — quadril desce abaixo do joelho. Lombar colada ao banco."},
       {n:"Extensão de Quadril no Cabo (kickback)",tg:["g"],s:3,r:"15",d:"60s",rest:60,nt:"Cada lado. Isolamento de glúteo máximo — core ativado para não compensar com lombar."},
-      {n:"Abdução na Máquina",tg:["g"],s:4,r:"15–20",d:"60s",rest:60,nt:"Glúteo médio — peso alto com controle total. Não balance o tronco para ajudar."},
-      {n:"Leg Curl Deitado Bilateral",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"Isquiotibiais — bilateral, sem assimetria. Amplitude total."},
+      {n:"Adução no Cabo ou Máquina",tg:[],s:3,r:"15–20",d:"60s",rest:60,nt:"Substitui a abdução duplicada. Adutores são o antagonista direto do glúteo médio — equilíbrio do quadril melhora estabilidade e reduz risco de lesão."},
+      {n:"Leg Curl Deitado Bilateral",tg:[],s:3,r:"12–15",d:"60s",rest:60,nt:"2ª e única exposição direta de isquiotibiais na semana — mantida aqui. Bilateral, sem assimetria. Amplitude total."},
+      {n:"Panturrilha Sentada na Máquina",tg:[],s:3,r:"15–20",d:"45s",rest:45,nt:"2ª frequência de panturrilha — sentada trabalha o sóleo, diferente da em pé (gastrocnêmio). Pausa de 1s no alongamento."},
       {n:"Afundo Caminhando com Halteres",tg:["g"],s:3,r:"10/lado",d:"75s",rest:75,nt:"Volume funcional — glúteo + quadríceps. Tronco levemente inclinado para frente."},
-      {n:"Cardio LISS — Bike ou Esteira inclinada",tg:[],s:1,r:"25–30 min",d:"—",rest:0,nt:"Zona 2 — 60–70% FCmax. Você deve conseguir manter uma conversa."}
+      {n:"Cardio LISS — Bike ou Esteira inclinada",tg:[],s:1,r:"20–25 min",d:"—",rest:0,nt:"Zona 2 — 60–70% FCmax. Ligeiramente reduzido para acomodar o volume de panturrilha inserido."}
     ],
-    info:"Segunda frequência de glúteo com estímulos de encurtamento (abdução, kickback). O LISS em zona 2 acelera recuperação muscular sem catabolismo."
+    info:"Abdução na máquina substituída por Adução — antagonista direto, equilibra o quadril. Panturrilha sentada inserida como 2ª frequência. Isquiotibiais: apenas Leg Curl, sem duplicação."
   }
 ];
 
@@ -385,16 +387,17 @@ function startTimer(seconds, exName, serieLabel, nextInfo){
   updateTimerBar();
   document.getElementById('timerBar').classList.add('show');
 
-  // Poll a 500ms — usa timestamp absoluto para compensar
-  // se o iOS suspender o timer brevemente (ex: tela desligada por 5s)
+  // Poll a 100ms — mais responsivo na detecção do zero
+  // usa timestamp absoluto para compensar suspensão do iOS
   timerInterval = setInterval(function(){
-    timerLeft = Math.max(0, Math.round((timerEndTime - Date.now()) / 1000));
+    var remaining = (timerEndTime - Date.now()) / 1000;
+    timerLeft = Math.max(0, Math.ceil(remaining));
     updateTimerBar();
-    if(timerLeft <= 0){
+    if(remaining <= 0){
       clearInterval(timerInterval);
       finishTimer();
     }
-  }, 500);
+  }, 100);
 }
 
 function updateTimerBar(){

@@ -180,7 +180,10 @@ section.on{display:block;animation:fade .25s ease}
 .mitem .mv2{font-size:10.5px;color:var(--mt)}
 .mitem .kv{font-size:11.5px;color:var(--tx);font-variant-numeric:tabular-nums;white-space:nowrap}
 .mitem .del{background:none;border:none;color:var(--mt);font-size:15px;padding:0 2px}
+.mchat{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ac);background:rgba(201,160,90,.14);padding:1px 6px;border-radius:8px;flex:none;white-space:nowrap}
 .empty2{text-align:center;color:var(--mt);font-size:11.5px;padding:14px 6px}
+.syncbtn{background:none;border:none;color:var(--ac);font-size:10.5px;padding:2px 4px;cursor:pointer;font-weight:500}
+.syncstatus{font-size:10.5px;color:var(--mt);margin-top:6px}
 
 /* Medidas */
 .meas-add{display:flex;gap:8px;margin:6px 0 4px}
@@ -269,13 +272,17 @@ canvas{width:100%;height:120px;margin-top:4px}
     <button onclick="shiftDay(1)">›</button>
   </div>
   <div class="card">
-    <div class="lbl">Total do dia</div>
-    <div style="font-size:24px;font-weight:600;color:#fff" id="dietKcal">0 <span style="font-size:12px;color:var(--mt);font-weight:400">/ 1.500–1.600 kcal</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div class="lbl" style="margin-bottom:0">Total do dia</div>
+      <button class="syncbtn" id="syncBtn" onclick="manualSync()">↻ sincronizar</button>
+    </div>
+    <div style="font-size:24px;font-weight:600;color:#fff;margin-top:9px" id="dietKcal">0 <span style="font-size:12px;color:var(--mt);font-weight:400">/ 1.500–1.600 kcal</span></div>
     <div class="macros">
       <div class="macro p"><div class="mvv" id="dietP">0</div><div class="mt2">Prot g</div><div class="bar"><i id="barP"></i></div></div>
       <div class="macro c"><div class="mvv" id="dietC">0</div><div class="mt2">Carb g</div><div class="bar"><i id="barC"></i></div></div>
       <div class="macro f"><div class="mvv" id="dietF">0</div><div class="mt2">Gord g</div><div class="bar"><i id="barF"></i></div></div>
     </div>
+    <div class="syncstatus" id="syncStatus">Nenhum lançamento via chat sincronizado ainda.</div>
   </div>
 
   <div class="card">
@@ -450,6 +457,7 @@ function go(t){
   document.querySelector(".scrollwrap").scrollTop=0;
   if(t==="meas")drawChart();
   if(t==="dash")renderDash();
+  if(t==="dash"||t==="diet")syncRemote();
 }
 
 /* ============================================================
@@ -464,6 +472,61 @@ function weekKeyOf(d){var on=new Date(d.getFullYear(),0,1);var w=Math.ceil((((d-
 function dietDay(k){DB.diet=DB.diet||{};DB.diet[k]=DB.diet[k]||{};return DB.diet[k]}
 
 var TARGET={kcal:1500,kcalMax:1600,p:128,c:125,f:53};
+
+/* ============================================================
+   SINCRONIZAÇÃO REMOTA — lançamentos feitos por conversa com o
+   Claude (ver CLAUDE.md) ficam versionados em data/nutrition/ no
+   repositório e são lidos aqui direto do GitHub, independente de
+   onde este app está hospedado.
+============================================================ */
+var REMOTE_OWNER='2zwrmjr67t-pixel',REMOTE_REPO='MorganaTreino',REMOTE_BRANCH='main';
+function remoteUrl(path){return 'https://raw.githubusercontent.com/'+REMOTE_OWNER+'/'+REMOTE_REPO+'/'+REMOTE_BRANCH+'/'+path}
+DB.remote=DB.remote||{index:[],days:{},lastSync:0};
+DB.remoteHidden=DB.remoteHidden||{};
+var SYNC_MIN_INTERVAL=20000;
+
+function fetchJSON(url){
+  return fetch(url,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).catch(function(){return null});
+}
+function remoteDay(k){return(DB.remote.days&&DB.remote.days[k])||{}}
+function remoteHideKey(k,slot,idx){return k+'|'+slot+'|'+idx}
+function remoteVisible(k,slot,idx){return!DB.remoteHidden[remoteHideKey(k,slot,idx)]}
+function hideRemote(k,slot,idx){DB.remoteHidden[remoteHideKey(k,slot,idx)]=true;save();renderDiet();if(document.getElementById('s-dash').classList.contains('on'))renderDash()}
+
+function syncRemote(force){
+  var now=Date.now();
+  if(!force&&(now-(DB.remote.lastSync||0))<SYNC_MIN_INTERVAL)return Promise.resolve();
+  var btn=document.getElementById('syncBtn');if(btn)btn.textContent='↻ sincronizando…';
+  return fetchJSON(remoteUrl('data/nutrition/index.json')).then(function(idx){
+    var dates=(idx&&Array.isArray(idx.dates))?idx.dates:[];
+    DB.remote.index=dates;
+    var today=keyOf(new Date());
+    var wanted={};wanted[keyOf(curDate)]=1;wanted[today]=1;
+    for(var i=0;i<7;i++){var dt=new Date();dt.setDate(dt.getDate()-i);wanted[keyOf(dt)]=1}
+    var monthPrefix=today.slice(0,7);
+    dates.forEach(function(d){if(d.indexOf(monthPrefix)===0)wanted[d]=1});
+    var toFetch=Object.keys(wanted).filter(function(d){return dates.indexOf(d)>-1});
+    return Promise.all(toFetch.map(function(d){
+      return fetchJSON(remoteUrl('data/nutrition/'+d+'.json')).then(function(day){
+        if(day){DB.remote.days=DB.remote.days||{};DB.remote.days[d]=day}
+      });
+    })).then(function(){
+      DB.remote.lastSync=now;save();
+      if(btn)btn.textContent='↻ sincronizar';
+      updateSyncStatus();
+      renderDiet();
+      if(document.getElementById('s-dash').classList.contains('on'))renderDash();
+    });
+  }).catch(function(){if(btn)btn.textContent='↻ sincronizar'});
+}
+function manualSync(){syncRemote(true)}
+function updateSyncStatus(){
+  var el=document.getElementById('syncStatus');if(!el)return;
+  var n=(DB.remote.index||[]).length;
+  if(!DB.remote.lastSync){el.textContent='Nenhum lançamento via chat sincronizado ainda.';return}
+  var t=new Date(DB.remote.lastSync).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  el.textContent=n?('Sincronizado às '+t+' · '+n+' dia(s) com lançamento via chat.'):('Sincronizado às '+t+' · nenhum lançamento via chat ainda.');
+}
 
 /* ============================================================
    MUSCULAÇÃO — preservado do app original (versão de proteção)
@@ -655,7 +718,7 @@ var QUICK=[
 var curSlot="cafe";
 var curDate=new Date();
 
-function shiftDay(n){curDate.setDate(curDate.getDate()+n);renderDateBar();renderDiet()}
+function shiftDay(n){curDate.setDate(curDate.getDate()+n);renderDateBar();renderDiet();syncRemote()}
 function renderDateBar(){
   var t=new Date();var yd=new Date();yd.setDate(t.getDate()-1);
   var isToday=keyOf(curDate)===keyOf(t);var isYd=keyOf(curDate)===keyOf(yd);
@@ -698,8 +761,11 @@ function addMeal(){
 }
 function delMeal(slot,idx){var d=dietDay(keyOf(curDate));d[slot].splice(idx,1);save();renderDiet()}
 function dayTotals(k){
-  var d=dietDay(k);var t={k:0,p:0,c:0,f:0};
-  SLOTS.forEach(function(s){(d[s[0]]||[]).forEach(function(x){t.k+=x.k;t.p+=x.p;t.c+=x.c;t.f+=x.f})});
+  var d=dietDay(k);var rd=remoteDay(k);var t={k:0,p:0,c:0,f:0};
+  SLOTS.forEach(function(s){
+    (d[s[0]]||[]).forEach(function(x){t.k+=x.k;t.p+=x.p;t.c+=x.c;t.f+=x.f});
+    (rd[s[0]]||[]).forEach(function(x,i){if(remoteVisible(k,s[0],i)){t.k+=x.k;t.p+=x.p;t.c+=x.c;t.f+=x.f}});
+  });
   return t;
 }
 function renderDiet(){
@@ -710,20 +776,27 @@ function renderDiet(){
   document.getElementById('dietC').textContent=t.c;
   document.getElementById('dietF').textContent=t.f;
   setw('barP',t.p/TARGET.p);setw('barC',t.c/TARGET.c);setw('barF',t.f/TARGET.f);
-  var d=dietDay(k);var groups=document.getElementById('mealGroups');groups.innerHTML='';
+  var d=dietDay(k);var rd=remoteDay(k);var groups=document.getElementById('mealGroups');groups.innerHTML='';
   var any=false;
   SLOTS.forEach(function(s){
-    var items=d[s[0]]||[];if(!items.length)return;any=true;
-    var sub=items.reduce(function(a,x){return a+x.k},0);
+    var local=d[s[0]]||[];
+    var remote=(rd[s[0]]||[]).map(function(x,i){return{x:x,i:i}}).filter(function(o){return remoteVisible(k,s[0],o.i)});
+    if(!local.length&&!remote.length)return;any=true;
+    var sub=local.reduce(function(a,x){return a+x.k},0)+remote.reduce(function(a,o){return a+o.x.k},0);
     var g=document.createElement('div');g.className='mealgrp';
     var body='<div class="gh"><b>'+s[1]+'</b><span>'+sub+' kcal</span></div>';
-    items.forEach(function(x,i){
+    local.forEach(function(x,i){
       var mv=(x.p||x.c||x.f)?'<span class="mv2">'+x.p+'/'+x.c+'/'+x.f+'</span>':'';
       body+='<div class="mitem"><span class="nm">'+esc(x.n)+'</span>'+mv+'<span class="kv">'+x.k+' kcal</span><button class="del" onclick="delMeal(\''+s[0]+'\','+i+')">×</button></div>';
+    });
+    remote.forEach(function(o){
+      var x=o.x;var mv=(x.p||x.c||x.f)?'<span class="mv2">'+x.p+'/'+x.c+'/'+x.f+'</span>':'';
+      body+='<div class="mitem"><span class="mchat">chat</span><span class="nm">'+esc(x.n)+'</span>'+mv+'<span class="kv">'+x.k+' kcal</span><button class="del" onclick="hideRemote(\''+k+'\',\''+s[0]+'\','+o.i+')" title="Ocultar neste aparelho">×</button></div>';
     });
     g.innerHTML=body;groups.appendChild(g);
   });
   if(!any)groups.innerHTML='<div class="empty2">Nenhuma refeição registrada neste dia.</div>';
+  updateSyncStatus();
 }
 function setw(id,r){document.getElementById(id).style.width=Math.min(r*100,100)+'%'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -772,10 +845,12 @@ function renderDash(){
   days.forEach(function(d){var s=document.createElement('span');s.textContent=labels[d];lb.appendChild(s)});
 
   // mês
-  var now=new Date();var monthVals=[];
-  Object.keys(DB.diet||{}).forEach(function(k){
-    var dd=new Date(k+'T12:00:00');
-    if(dd.getMonth()===now.getMonth()&&dd.getFullYear()===now.getFullYear()){
+  var now=new Date();var monthVals=[];var monthPrefix=keyOf(now).slice(0,7);
+  var monthDates={};
+  Object.keys(DB.diet||{}).forEach(function(k){monthDates[k]=1});
+  (DB.remote.index||[]).forEach(function(k){monthDates[k]=1});
+  Object.keys(monthDates).forEach(function(k){
+    if(k.indexOf(monthPrefix)===0){
       var v=dayTotals(k).k;if(v>0)monthVals.push(v);
     }
   });
@@ -931,6 +1006,7 @@ renderDiet();
 renderMeas();
 renderDobras();
 renderDash();
+syncRemote(true);
 </script>
 </body>
 </html>

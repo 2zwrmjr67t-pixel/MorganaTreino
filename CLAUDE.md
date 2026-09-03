@@ -62,6 +62,14 @@ Exemplo mental: "comi 2 ovos e um whey de manhã" → 2 chamadas ao script no
 slot `cafe`, data de hoje, commit único, push em `main`, resposta curta com
 os macros.
 
+## Via Claude Chat (sem terminal)
+
+Esta rotina pressupõe Claude Code (terminal + git). Para registrar
+alimentação a partir de uma conversa comum no claude.ai (sem Claude Code),
+veja `docs/registro-via-claude-chat.md` — mesmo schema, mesma pasta
+`data/nutrition/`, mas escrevendo os arquivos via ferramentas do conector
+GitHub em vez de rodar `scripts/log_meal.py`.
+
 ## Reprogramar o app web
 
 O app (`index.html`) busca `data/nutrition/index.json` e os arquivos de dia

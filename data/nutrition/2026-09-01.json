@@ -1,0 +1,130 @@
+{
+  "cafe": [
+    {
+      "n": "Whey isolado (2 scoops, ~60g)",
+      "k": 226,
+      "p": 48,
+      "c": 4,
+      "f": 2,
+      "src": "chat",
+      "t": "07:00"
+    },
+    {
+      "n": "Água de coco (200ml)",
+      "k": 38,
+      "p": 0,
+      "c": 9,
+      "f": 0,
+      "src": "chat",
+      "t": "07:00"
+    },
+    {
+      "n": "Psyllium (1 scoop pequeno, ~5g)",
+      "k": 8,
+      "p": 0,
+      "c": 3,
+      "f": 0,
+      "src": "chat",
+      "t": "07:00"
+    },
+    {
+      "n": "Banana (1 unidade média, ~100g)",
+      "k": 89,
+      "p": 1,
+      "c": 23,
+      "f": 0,
+      "src": "chat",
+      "t": "07:00"
+    },
+    {
+      "n": "Pão (1 fatia)",
+      "k": 65,
+      "p": 2,
+      "c": 12,
+      "f": 1,
+      "src": "chat",
+      "t": "08:15"
+    },
+    {
+      "n": "Presunto (1 fatia)",
+      "k": 25,
+      "p": 4,
+      "c": 0,
+      "f": 1,
+      "src": "chat",
+      "t": "08:15"
+    },
+    {
+      "n": "Queijo (1 fatia)",
+      "k": 65,
+      "p": 4,
+      "c": 0,
+      "f": 5,
+      "src": "chat",
+      "t": "08:15"
+    },
+    {
+      "n": "Café preto pequeno",
+      "k": 2,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat",
+      "t": "08:15"
+    }
+  ],
+  "lm": [
+    {
+      "n": "Banana (1 unidade média, ~100g)",
+      "k": 89,
+      "p": 1,
+      "c": 23,
+      "f": 0,
+      "src": "chat",
+      "t": "10:30"
+    }
+  ],
+  "almoco": [
+    {
+      "n": "Capeletti de frango c/ batata e pimentões (~180g)",
+      "k": 216,
+      "p": 14,
+      "c": 24,
+      "f": 7,
+      "src": "chat",
+      "t": "12:10"
+    }
+  ],
+  "lt": [
+    {
+      "n": "Bolo caseiro tipo petit gâteau (~200g)",
+      "k": 800,
+      "p": 10,
+      "c": 90,
+      "f": 44,
+      "src": "chat",
+      "t": "16:00"
+    }
+  ],
+  "janta": [
+    {
+      "n": "Carne moída (140g)",
+      "k": 350,
+      "p": 36,
+      "c": 0,
+      "f": 24,
+      "src": "chat",
+      "t": "20:00"
+    },
+    {
+      "n": "Purê de moranga (100g)",
+      "k": 60,
+      "p": 1,
+      "c": 12,
+      "f": 1,
+      "src": "chat",
+      "t": "20:00"
+    }
+  ],
+  "ceia": []
+}

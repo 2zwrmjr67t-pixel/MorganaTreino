@@ -1,0 +1,90 @@
+{
+  "cafe": [
+    {
+      "n": "Pão (1 fatia)",
+      "k": 65,
+      "p": 2,
+      "c": 12,
+      "f": 1,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Queijo (1 fatia)",
+      "k": 65,
+      "p": 4,
+      "c": 0,
+      "f": 5,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Presunto (1 fatia)",
+      "k": 25,
+      "p": 4,
+      "c": 0,
+      "f": 1,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Café (~60ml, sem açúcar)",
+      "k": 1,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat"
+    },
+    {
+      "n": "Mamão papaia, fatia pequena e fina (~40g)",
+      "k": 17,
+      "p": 0,
+      "c": 4,
+      "f": 0,
+      "src": "chat"
+    }
+  ],
+  "lm": [],
+  "almoco": [
+    {
+      "n": "Polenta pistolada na chapa (80g)",
+      "k": 96,
+      "p": 2,
+      "c": 16,
+      "f": 2,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Bife de alcatra na chapa (140g)",
+      "k": 266,
+      "p": 45,
+      "c": 0,
+      "f": 8,
+      "src": "chat",
+      "t": "12:30"
+    }
+  ],
+  "lt": [
+    {
+      "n": "Sorvete Frutas do Vale, maracujá (40g)",
+      "k": 60,
+      "p": 1,
+      "c": 10,
+      "f": 2,
+      "src": "chat",
+      "t": "16:00"
+    },
+    {
+      "n": "Café (~60ml, preto sem açúcar)",
+      "k": 1,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat",
+      "t": "16:00"
+    }
+  ],
+  "janta": [],
+  "ceia": []
+}

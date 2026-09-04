@@ -35,11 +35,93 @@
       "f": 1,
       "src": "chat",
       "t": "09:54"
+    },
+    {
+      "n": "Psyllium (1 scoop pequeno, ~5g)",
+      "k": 8,
+      "p": 0,
+      "c": 3,
+      "f": 0,
+      "src": "chat",
+      "t": "09:54"
+    },
+    {
+      "n": "Pão (1 fatia)",
+      "k": 65,
+      "p": 2,
+      "c": 12,
+      "f": 1,
+      "src": "chat",
+      "t": "10:10"
+    },
+    {
+      "n": "Queijo (1 fatia)",
+      "k": 65,
+      "p": 4,
+      "c": 0,
+      "f": 5,
+      "src": "chat",
+      "t": "10:10"
+    },
+    {
+      "n": "Presunto (1 fatia)",
+      "k": 25,
+      "p": 4,
+      "c": 0,
+      "f": 1,
+      "src": "chat",
+      "t": "10:10"
+    },
+    {
+      "n": "Café (~100ml, ao longo do dia)",
+      "k": 1,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat"
     }
   ],
   "lm": [],
-  "almoco": [],
+  "almoco": [
+    {
+      "n": "Beterraba cozida (40g)",
+      "k": 18,
+      "p": 1,
+      "c": 4,
+      "f": 0,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Cenoura cozida (30g)",
+      "k": 11,
+      "p": 0,
+      "c": 2,
+      "f": 0,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Sobrecoxa com osso, sem pele, na churrasqueira (2 unid., ~200g carne)",
+      "k": 360,
+      "p": 48,
+      "c": 0,
+      "f": 18,
+      "src": "chat",
+      "t": "12:30"
+    }
+  ],
   "lt": [],
-  "janta": [],
+  "janta": [
+    {
+      "n": "Cachorro-quente (cacetinho, salsicha, milho) — 2 unidades",
+      "k": 674,
+      "p": 20,
+      "c": 72,
+      "f": 32,
+      "src": "chat",
+      "t": "20:30"
+    }
+  ],
   "ceia": []
 }

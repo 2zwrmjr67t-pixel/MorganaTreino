@@ -1,0 +1,92 @@
+{
+  "cafe": [
+    {
+      "n": "Pão (1 fatia)",
+      "k": 65,
+      "p": 2,
+      "c": 12,
+      "f": 1,
+      "src": "chat",
+      "t": "07:30"
+    },
+    {
+      "n": "Presunto (1 fatia)",
+      "k": 25,
+      "p": 4,
+      "c": 0,
+      "f": 1,
+      "src": "chat",
+      "t": "07:30"
+    },
+    {
+      "n": "Queijo (1 fatia)",
+      "k": 65,
+      "p": 4,
+      "c": 0,
+      "f": 5,
+      "src": "chat",
+      "t": "07:30"
+    },
+    {
+      "n": "Café preto (~180ml, ao longo da manhã)",
+      "k": 2,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat"
+    }
+  ],
+  "lm": [],
+  "almoco": [
+    {
+      "n": "Massa integral cozida (50g)",
+      "k": 62,
+      "p": 3,
+      "c": 13,
+      "f": 1,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Carne moída (110g)",
+      "k": 275,
+      "p": 29,
+      "c": 0,
+      "f": 19,
+      "src": "chat",
+      "t": "12:30"
+    }
+  ],
+  "lt": [
+    {
+      "n": "Maçã verde inteira c/ casca (~150g)",
+      "k": 78,
+      "p": 0,
+      "c": 21,
+      "f": 0,
+      "src": "chat",
+      "t": "16:00"
+    }
+  ],
+  "janta": [
+    {
+      "n": "Sobrecoxa desossada sem pele (100g)",
+      "k": 172,
+      "p": 26,
+      "c": 0,
+      "f": 7,
+      "src": "chat",
+      "t": "20:00"
+    },
+    {
+      "n": "Arroz branco (100g)",
+      "k": 130,
+      "p": 3,
+      "c": 28,
+      "f": 0,
+      "src": "chat",
+      "t": "20:00"
+    }
+  ],
+  "ceia": []
+}

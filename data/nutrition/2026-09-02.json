@@ -88,5 +88,15 @@
       "t": "20:00"
     }
   ],
-  "ceia": []
+  "ceia": [
+    {
+      "n": "Sorvete de creme c/ chocolate, Frutas do Vale (200g)",
+      "k": 420,
+      "p": 7,
+      "c": 48,
+      "f": 22,
+      "src": "chat",
+      "t": "21:30"
+    }
+  ]
 }

@@ -111,7 +111,17 @@
       "t": "12:30"
     }
   ],
-  "lt": [],
+  "lt": [
+    {
+      "n": "Bisnaguinha (2 unidades)",
+      "k": 140,
+      "p": 4,
+      "c": 26,
+      "f": 2,
+      "src": "chat",
+      "t": "17:30"
+    }
+  ],
   "janta": [
     {
       "n": "Cachorro-quente (cacetinho, salsicha, milho) — 2 unidades",
@@ -121,6 +131,15 @@
       "f": 32,
       "src": "chat",
       "t": "20:30"
+    },
+    {
+      "n": "Hambúrguer (pão francês, 180g carne, queijo muçarela)",
+      "k": 660,
+      "p": 55,
+      "c": 30,
+      "f": 37,
+      "src": "chat",
+      "t": "21:00"
     }
   ],
   "ceia": []

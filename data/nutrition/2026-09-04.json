@@ -1,42 +1,6 @@
 {
   "cafe": [
     {
-      "n": "Whey (1 scoop, ~30g)",
-      "k": 113,
-      "p": 24,
-      "c": 2,
-      "f": 1,
-      "src": "chat",
-      "t": "06:30"
-    },
-    {
-      "n": "Psyllium (1 scoop pequeno, ~5g)",
-      "k": 8,
-      "p": 0,
-      "c": 3,
-      "f": 0,
-      "src": "chat",
-      "t": "06:30"
-    },
-    {
-      "n": "Água de coco (200ml)",
-      "k": 38,
-      "p": 0,
-      "c": 9,
-      "f": 0,
-      "src": "chat",
-      "t": "06:30"
-    },
-    {
-      "n": "Banana (1 unidade média, ~100g)",
-      "k": 89,
-      "p": 1,
-      "c": 23,
-      "f": 0,
-      "src": "chat",
-      "t": "06:30"
-    },
-    {
       "n": "Pão (1 fatia)",
       "k": 65,
       "p": 2,
@@ -119,8 +83,27 @@
       "f": 0,
       "src": "chat",
       "t": "16:00"
+    },
+    {
+      "n": "Bisnaguinha (2 unidades)",
+      "k": 140,
+      "p": 4,
+      "c": 26,
+      "f": 2,
+      "src": "chat",
+      "t": "17:30"
     }
   ],
-  "janta": [],
+  "janta": [
+    {
+      "n": "Hambúrguer (pão francês, 180g carne, queijo muçarela)",
+      "k": 660,
+      "p": 55,
+      "c": 30,
+      "f": 37,
+      "src": "chat",
+      "t": "21:00"
+    }
+  ],
   "ceia": []
 }

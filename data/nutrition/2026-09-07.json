@@ -1,0 +1,84 @@
+{
+  "cafe": [
+    {
+      "n": "Pão brioche (1 unidade, ~30g)",
+      "k": 90,
+      "p": 2,
+      "c": 11,
+      "f": 4,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Cuca caseira de goiabada (~40g)",
+      "k": 120,
+      "p": 2,
+      "c": 17,
+      "f": 5,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Cuca caseira de doce de leite (~40g)",
+      "k": 120,
+      "p": 2,
+      "c": 17,
+      "f": 5,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Café com leite (~80ml, sem açúcar)",
+      "k": 15,
+      "p": 1,
+      "c": 1,
+      "f": 1,
+      "src": "chat",
+      "t": "08:00"
+    }
+  ],
+  "lm": [],
+  "almoco": [
+    {
+      "n": "Sobrecoxa de frango (~150g)",
+      "k": 285,
+      "p": 38,
+      "c": 0,
+      "f": 14,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Talharim com molho sugo (~150g)",
+      "k": 225,
+      "p": 8,
+      "c": 35,
+      "f": 5,
+      "src": "chat",
+      "t": "12:30"
+    }
+  ],
+  "lt": [
+    {
+      "n": "Bergamota (1 unidade, ~100g)",
+      "k": 53,
+      "p": 1,
+      "c": 13,
+      "f": 0,
+      "src": "chat",
+      "t": "16:00"
+    }
+  ],
+  "janta": [
+    {
+      "n": "Sopa de capelete com frango (~1 prato)",
+      "k": 220,
+      "p": 15,
+      "c": 25,
+      "f": 6,
+      "src": "chat",
+      "t": "20:00"
+    }
+  ],
+  "ceia": []
+}

@@ -1,0 +1,83 @@
+{
+  "cafe": [
+    {
+      "n": "Cuca de goiabada com flor de sal (~60g)",
+      "k": 180,
+      "p": 3,
+      "c": 25,
+      "f": 7,
+      "src": "chat",
+      "t": "09:00"
+    },
+    {
+      "n": "Cuca de banana com doce de leite (~60g)",
+      "k": 180,
+      "p": 3,
+      "c": 26,
+      "f": 7,
+      "src": "chat",
+      "t": "09:00"
+    },
+    {
+      "n": "Pão brioche (3 unidades, ~30g cada)",
+      "k": 270,
+      "p": 7,
+      "c": 32,
+      "f": 11,
+      "src": "chat",
+      "t": "09:00"
+    }
+  ],
+  "lm": [],
+  "almoco": [
+    {
+      "n": "Entranha na grelha (~150g)",
+      "k": 375,
+      "p": 42,
+      "c": 0,
+      "f": 23,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Costela magra na grelha (~150g)",
+      "k": 300,
+      "p": 45,
+      "c": 0,
+      "f": 14,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Pão brioche (1 unidade, ~30g)",
+      "k": 90,
+      "p": 2,
+      "c": 11,
+      "f": 4,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Vinho tinto com Coca-Cola (~200ml)",
+      "k": 148,
+      "p": 0,
+      "c": 9,
+      "f": 0,
+      "src": "chat",
+      "t": "12:30"
+    }
+  ],
+  "lt": [],
+  "janta": [
+    {
+      "n": "Mini X de coração de galinha",
+      "k": 350,
+      "p": 25,
+      "c": 25,
+      "f": 18,
+      "src": "chat",
+      "t": "20:30"
+    }
+  ],
+  "ceia": []
+}

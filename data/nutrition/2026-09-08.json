@@ -1,0 +1,56 @@
+{
+  "cafe": [
+    {
+      "n": "Café (~80ml, sem açúcar)",
+      "k": 1,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Maçã verde, metade (~75g)",
+      "k": 39,
+      "p": 0,
+      "c": 10,
+      "f": 0,
+      "src": "chat",
+      "t": "08:00"
+    }
+  ],
+  "lm": [],
+  "almoco": [
+    {
+      "n": "Massa penne com queijo (~80g)",
+      "k": 120,
+      "p": 5,
+      "c": 20,
+      "f": 3,
+      "src": "chat",
+      "t": "12:00"
+    }
+  ],
+  "lt": [
+    {
+      "n": "Banana (1 unidade média, ~100g)",
+      "k": 89,
+      "p": 1,
+      "c": 23,
+      "f": 0,
+      "src": "chat",
+      "t": "16:00"
+    },
+    {
+      "n": "Maçã verde (1 unidade, ~150g)",
+      "k": 78,
+      "p": 0,
+      "c": 21,
+      "f": 0,
+      "src": "chat",
+      "t": "16:00"
+    }
+  ],
+  "janta": [],
+  "ceia": []
+}

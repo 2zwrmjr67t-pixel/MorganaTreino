@@ -47,22 +47,31 @@
   "lm": [],
   "almoco": [
     {
-      "n": "Polenta pistolada na chapa (80g)",
-      "k": 96,
-      "p": 2,
-      "c": 16,
-      "f": 2,
+      "n": "Purê de abóbora (100g)",
+      "k": 50,
+      "p": 1,
+      "c": 12,
+      "f": 1,
       "src": "chat",
-      "t": "12:30"
+      "t": "12:00"
     },
     {
-      "n": "Bife de alcatra na chapa (140g)",
-      "k": 266,
-      "p": 45,
+      "n": "Carne moída (120g)",
+      "k": 300,
+      "p": 31,
       "c": 0,
-      "f": 8,
+      "f": 20,
       "src": "chat",
-      "t": "12:30"
+      "t": "12:00"
+    },
+    {
+      "n": "Bolo de chocolate (~120g)",
+      "k": 444,
+      "p": 6,
+      "c": 54,
+      "f": 24,
+      "src": "chat",
+      "t": "12:00"
     }
   ],
   "lt": [

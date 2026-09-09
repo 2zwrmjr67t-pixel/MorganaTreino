@@ -74,7 +74,44 @@
     }
   ],
   "lm": [],
-  "almoco": [],
+  "almoco": [
+    {
+      "n": "Entranha na grelha (~150g)",
+      "k": 375,
+      "p": 42,
+      "c": 0,
+      "f": 23,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Costela magra na grelha (~150g)",
+      "k": 300,
+      "p": 45,
+      "c": 0,
+      "f": 14,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Pão brioche (1 unidade, ~30g)",
+      "k": 90,
+      "p": 2,
+      "c": 11,
+      "f": 4,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Vinho tinto com Coca-Cola (~200ml)",
+      "k": 148,
+      "p": 0,
+      "c": 9,
+      "f": 0,
+      "src": "chat",
+      "t": "12:30"
+    }
+  ],
   "lt": [],
   "janta": [
     {

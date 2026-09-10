@@ -1,0 +1,138 @@
+{
+  "cafe": [
+    {
+      "n": "Pão (1 fatia)",
+      "k": 65,
+      "p": 2,
+      "c": 12,
+      "f": 1,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Presunto (1 fatia)",
+      "k": 25,
+      "p": 4,
+      "c": 0,
+      "f": 1,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Queijo (1 fatia)",
+      "k": 65,
+      "p": 4,
+      "c": 0,
+      "f": 5,
+      "src": "chat",
+      "t": "08:00"
+    },
+    {
+      "n": "Café preto (90ml)",
+      "k": 1,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat",
+      "t": "08:00"
+    }
+  ],
+  "lm": [],
+  "almoco": [
+    {
+      "n": "Batata doce assada (60g)",
+      "k": 54,
+      "p": 1,
+      "c": 13,
+      "f": 0,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Cenoura cozida (20g)",
+      "k": 7,
+      "p": 0,
+      "c": 2,
+      "f": 0,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Pepino japonês (15g)",
+      "k": 2,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Vazio assado (150g)",
+      "k": 330,
+      "p": 42,
+      "c": 0,
+      "f": 18,
+      "src": "chat",
+      "t": "12:30"
+    },
+    {
+      "n": "Abacaxi com chia (sobremesa, ~100g abacaxi + 10g chia)",
+      "k": 99,
+      "p": 2,
+      "c": 17,
+      "f": 3,
+      "src": "chat",
+      "t": "12:30"
+    }
+  ],
+  "lt": [
+    {
+      "n": "Bolo de milho sem cobertura (20g)",
+      "k": 60,
+      "p": 1,
+      "c": 9,
+      "f": 2,
+      "src": "chat",
+      "t": "16:00"
+    },
+    {
+      "n": "Café preto (60ml)",
+      "k": 1,
+      "p": 0,
+      "c": 0,
+      "f": 0,
+      "src": "chat",
+      "t": "16:00"
+    }
+  ],
+  "janta": [
+    {
+      "n": "Arroz branco (75g)",
+      "k": 98,
+      "p": 2,
+      "c": 21,
+      "f": 0,
+      "src": "chat",
+      "t": "20:00"
+    },
+    {
+      "n": "Carne moída (143g)",
+      "k": 358,
+      "p": 37,
+      "c": 0,
+      "f": 24,
+      "src": "chat",
+      "t": "20:00"
+    },
+    {
+      "n": "Salada (~30g)",
+      "k": 5,
+      "p": 0,
+      "c": 1,
+      "f": 0,
+      "src": "chat",
+      "t": "20:00"
+    }
+  ],
+  "ceia": []
+}
